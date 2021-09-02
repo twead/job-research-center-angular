@@ -1,0 +1,89 @@
+<app-navigation></app-navigation>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login"><strong>Bejelentkezés</strong></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/registration"><strong>Regisztráció</strong></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/help"><strong>Tájékoztató</strong></a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h3>Regisztráció</h3>
+    <div class="container">
+      <div class="jumbotron">
+        <form #form="ngForm" (ngSubmit)="onRegister()" >
+          <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="email" placeholder="Enter email" name="email"
+              [(ngModel)]="email" #emailError="ngModel" pattern="[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-]+" required>
+            </div>
+            <div class="alert alert-danger" *ngIf="emailError.invalid && emailError.touched">
+              <div *ngIf="emailError.errors.required">
+                Email cím megadása kötelező!
+              </div>
+              <div *ngIf="emailError.errors.pattern">
+                Nem egyezik az email mintával!
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password:</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" 
+                [(ngModel)]="password" #passwordError="ngModel" minlength="8" maxlength="25"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"required>
+            </div>
+              <div class="alert alert-danger" *ngIf="passwordError.invalid && passwordError.touched">
+              <div *ngIf="passwordError.errors.required">
+                Jelszó megadása kötelező!
+              </div>
+              <div *ngIf="passwordError.errors.minlength">
+                Minimum {{ passwordError.errors.minlength.requiredLength }} karakter hosszúságú legyen!
+              </div>
+              <div *ngIf="passwordError.errors.pattern">
+                Tartalmazzon számokat,  kis és nagybetűket.
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Teljes név:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" 
+                [(ngModel)]="name" #nameError="ngModel" maxlength="50" required>
+            </div>
+              <div class="alert alert-danger" *ngIf="nameError.invalid && nameError.touched">
+              <div *ngIf="nameError.errors.required">
+                Név megadása kötelező!
+              </div>
+            </div>
+          </div>
+          <div class=" md-outline input-with-post-icon datepicker form-group row">
+            <label for="dateOfBorn" class="col-sm-2 col-form-label">Születés dátuma:</label>
+            <div class="col-sm-10">
+            <input placeholder="Születési idő" type="date" [(ngModel)]="dateOfBorn" 
+            name="dateOfBorn" id="dateOfBorn" class="form-control" maxvalue=date()>
+          </div></div>
+          <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-2 col-form-label">Telefonszám:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phoneNumber" name="phoneNumber" 
+                [(ngModel)]="phoneNumber"maxlength="20" #phoneNumberError="ngModel">
+            </div>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="isEmployer" name="isEmployer" [(ngModel)]="isEmployer">
+            <label class="form-check-label" for="isEmployer">Munkaadó vagyok</label>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Regisztrálok</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
