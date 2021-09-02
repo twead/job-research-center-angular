@@ -1,0 +1,5 @@
+<app-navigation></app-navigation>
+<div class="container text-center">
+    <h2 *ngIf="!email">Vendég: kérlek jelentkezz be!</h2>
+    <h2 *ngIf="email">Felhasználó bejelentkezve: {{email}}!</h2>
+  </div>
