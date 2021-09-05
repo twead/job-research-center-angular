@@ -10,12 +10,11 @@ import { AuthService } from '../service/auth.service';
 })
 export class ActivationComponent implements OnInit {
 
-
-    constructor(
-      private activatedRoute: ActivatedRoute,
-      private authService: AuthService,
-      private router: Router,
-      private toastr: ToastrService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.activation();

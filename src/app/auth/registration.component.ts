@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NewUser } from '../dto/new-user';
 import { AuthService } from '../service/auth.service';
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import { PasswordValidation } from '../validation/password-validation';
 
 
 @Component({
@@ -11,6 +13,8 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
+  form: FormGroup = new FormGroup({});
 
   newUser: NewUser;
  
@@ -22,12 +26,34 @@ export class RegistrationComponent implements OnInit {
   isEmployer: Boolean;
 
   errorMessage: string;
+  confirmpassword: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private fb: FormBuilder
+  ) { 
+    this.form = fb.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],  
+      confirm_password: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      isEmployer: ['', [Validators.required]],
+      dateOfBorn: ['', [Validators.required]]
+    }, { 
+      validator: PasswordValidation('password', 'confirm_password') 
+    })
+  }
+
+  get f(){  
+    return this.form.controls;  
+  }   
+
+  submit(){
+    console.log(this.form.value);
+  }
 
   ngOnInit(): void {
   }
