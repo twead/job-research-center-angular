@@ -1,4 +1,5 @@
 import { Role } from './role';
+import { Employer } from './employer';
 
 export class User {
     constructor(
@@ -10,7 +11,8 @@ export class User {
         public phoneNumber: string = null,
         public activation: string = null,
         public isenabled: boolean = false,
-        public role: Role = null
+        public role: Role = null,
+        public employer: Employer = null
         ){}
     
     

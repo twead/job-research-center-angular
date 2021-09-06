@@ -189,3 +189,9 @@
       width: 25em;
     }
   }
+  .alert {
+    padding: 1px;
+    margin-bottom: 1px;
+    border: 1px solid transparent;
+    border-radius: 1px;
+  }

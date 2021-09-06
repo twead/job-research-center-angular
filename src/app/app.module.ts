@@ -19,6 +19,9 @@ import { ActivationComponent } from './activation/activation.component';
 import { HelpComponent } from './help/help.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileUpdateComponent } from './profile/profile-update.component';
+import { PasswordUpdateComponent } from './profile/password-update.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ActivationComponent,
     HelpComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent   
+    ResetPasswordComponent,
+    ProfileComponent,
+    ProfileUpdateComponent,
+    PasswordUpdateComponent   
   ],
   imports: [
     BrowserModule,

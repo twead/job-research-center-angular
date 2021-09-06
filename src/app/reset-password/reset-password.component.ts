@@ -49,7 +49,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit(){
-    this.authService.updatePassword(this.activatedRoute.snapshot.url[1].path, new UpdatePasswordDto(this.password)).subscribe(
+    this.authService.updatePassword(this.activatedRoute.snapshot.url[1].path, 
+      new UpdatePasswordDto(this.password)).subscribe(
       data => {
         this.toastr.success('Sikeres jelszómódosítás!', 'OK', {
           timeOut: 3000,  positionClass: 'toast-top-center',
