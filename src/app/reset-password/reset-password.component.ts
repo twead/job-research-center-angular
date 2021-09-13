@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UpdatePasswordDto } from '../dto/update-password-dto';
 import { AuthService } from '../service/auth.service';
-import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PasswordValidation } from '../validation/password-validation';
 
 @Component({
@@ -19,19 +19,19 @@ export class ResetPasswordComponent implements OnInit {
   confirmpassword: string;
 
   constructor(private authService: AuthService, private router: Router,
-    private activatedRoute: ActivatedRoute, private toastr: ToastrService, private fb: FormBuilder) { 
-      this.form = fb.group({
-        password: ['', [Validators.required]],  
-        confirm_password: ['', [Validators.required]] 
-      }, { 
-        validator: PasswordValidation('password', 'confirm_password') 
-      })
-    }
-  get f(){  
-      return this.form.controls;  
-    }   
-  
-  submit(){
+    private activatedRoute: ActivatedRoute, private toastr: ToastrService, private fb: FormBuilder) {
+    this.form = fb.group({
+      password: ['', [Validators.required]],
+      confirm_password: ['', [Validators.required]]
+    }, {
+      validator: PasswordValidation('password', 'confirm_password')
+    })
+  }
+  get f() {
+    return this.form.controls;
+  }
+
+  submit() {
     console.log(this.form.value);
   }
 
@@ -39,7 +39,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPassword();
   }
 
-  resetPassword(){
+  resetPassword() {
     this.authService.resetPassword(this.activatedRoute.snapshot.url[1].path).subscribe(
       data => {
       },
@@ -48,20 +48,21 @@ export class ResetPasswordComponent implements OnInit {
     );
   }
 
-  onSubmit(){
-    this.authService.updatePassword(this.activatedRoute.snapshot.url[1].path, new UpdatePasswordDto(this.password)).subscribe(
-      data => {
-        this.toastr.success('Sikeres jelszómódosítás!', 'OK', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/login']);
-      },
-      error => {
-        this.toastr.error('Sikertelen jelszómódosítás!', 'Hiba!', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-      }
-    );
+  onSubmit() {
+    this.authService.updatePassword(this.activatedRoute.snapshot.url[1].path,
+      new UpdatePasswordDto(this.password)).subscribe(
+        data => {
+          this.toastr.success('Sikeres jelszómódosítás!', 'OK', {
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.toastr.error('Sikertelen jelszómódosítás!', 'Hiba!', {
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+        }
+      );
   }
 
 }

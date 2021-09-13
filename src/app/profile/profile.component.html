@@ -1,0 +1,54 @@
+<app-navigation></app-navigation>
+<div class="card text-center">
+  <div class="card-header">
+    <h1>Adataim:</h1>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <div class="profileImage">
+        <img *ngIf="picture" src="{{imagePath}}">
+        <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
+      </div>
+      <div>
+        <label><b>Név: </b></label> {{profileData?.name}}
+      </div>
+      <div>
+        <label><b>Email: </b></label> {{profileData?.email}}
+      </div>
+      <div>
+        <label><b>Születési dátum: </b></label>
+        <span *ngIf="profileData?.dateOfBorn"> {{profileData?.dateOfBorn}}</span>
+        <span *ngIf="!profileData?.dateOfBorn"> Nincs megadva</span>
+      </div>
+      <div>
+        <label><b>Telefonszám: </b></label>
+        <span *ngIf="profileData?.phoneNumber"> {{profileData?.phoneNumber}}</span>
+        <span *ngIf="!profileData?.phoneNumber"> Nincs megadva</span>
+      </div>
+      <div *ngIf="isEmployer">
+        <label><b>Státusz: </b></label>
+        <span *ngIf="profileData?.employer.validated"> Aktív</span>
+        <div class="alert alert-success" *ngIf="profileData?.employer.validated">
+          <div>
+            Munkahelyek meghirdetése a oldalon engedélyezett.
+          </div>
+        </div>
+        <span *ngIf="!profileData?.employer.validated"> Nem ellenőrzött</span>
+        <div class="alert alert-danger" *ngIf="!profileData?.employer.validated">
+          <div>
+            A kérelmed még felülvizsgálat alatt van.
+            Hamarosan jelentkezünk a megadott elérhetőségeken további információért.
+            Amennyiben bármilyen kérdésed van, kérlek írj egy emailt a
+            <b>szakdolgozat.jobresearchcenter@gmail.com</b> címre.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button (click)="updateProfile()" class="btn btn-primary" style="margin: 10px 20px">
+      Módosítás
+    </button>
+    <button (click)="updatePassword()" class="btn btn-primary" style="margin: 10px 20px">
+      Jelszó megváltoztatása
+    </button>
+  </div>
+</div>

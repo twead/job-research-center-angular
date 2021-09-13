@@ -6,7 +6,6 @@ import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { PasswordValidation } from '../validation/password-validation';
 
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -39,9 +38,9 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required]],  
       confirm_password: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
-      isEmployer: ['', [Validators.required]],
-      dateOfBorn: ['', [Validators.required]]
+      phoneNumber: ['', [Validators.nullValidator]],
+      isEmployer: ['', [Validators.nullValidator]],
+      dateOfBorn: ['', [Validators.nullValidator]]
     }, { 
       validator: PasswordValidation('password', 'confirm_password') 
     })
@@ -59,7 +58,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegister(): void{
-    this.newUser = new NewUser( this.email, this.password,this.name, this.dateOfBorn, this.phoneNumber, this.isEmployer);
+    this.newUser = new NewUser( this.email, this.password,this.name, this.dateOfBorn, 
+      this.phoneNumber, this.isEmployer);
     this.authService.addUser(this.newUser).subscribe(
       data => {
         this.toastr.success('Sikeres regisztráció!', 'OK', {
