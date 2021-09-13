@@ -25,7 +25,8 @@ export class NavigationComponent{
     );
 
 
-    constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService, private router: Router) {}
+    constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService, 
+      private router: Router) {}
 
     ngOnInit(): void {
       this.isLogged = this.tokenService.isLogged();

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "szakdolgozat-66c57": {
+      "hosting": {
+        "szakdolgozat-angular": [
+          "szakdolgozat-66c57"
+        ]
+      }
+    }
+  }
+}

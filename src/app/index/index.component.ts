@@ -9,7 +9,6 @@ import { TokenService } from '../service/token.service';
 export class IndexComponent implements OnInit {
 
   email: string;
-
   constructor(private tokenService: TokenService) { }
 
   ngOnInit(): void {

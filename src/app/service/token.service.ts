@@ -8,8 +8,7 @@ const TOKEN_KEY = 'AuthToken';
 })
 export class TokenService {
 
-  role: String;
-
+ roles: Array<string> = [];
   constructor(
     private router : Router
   ) {}
@@ -50,8 +49,8 @@ export class TokenService {
     const payload = token.split('.')[1];
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const role = values.role;
-    if(role=='ROLE_EMPLOYER'){
+    const roles = values.roles;
+    if(roles.indexOf('ROLE_EMPLOYER')<0){
       return false;
     }
     return true;
@@ -65,8 +64,8 @@ export class TokenService {
     const payload = token.split('.')[1];
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const role = values.role;
-    if(role=='ROLE_EMPLOYEE'){
+    const roles = values.roles;
+    if(roles.indexOf('ROLE_EMPLOYEE')<0){
       return false;
     }
     return true;
@@ -80,8 +79,8 @@ export class TokenService {
     const payload = token.split('.')[1];
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const role = values.role;
-    if(role=='ROLE_ADMIN'){
+    const roles = values.roles;
+    if(roles.indexOf('ROLE_ADMIN')<0){
       return false;
     }
     return true;

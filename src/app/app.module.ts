@@ -10,6 +10,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -19,6 +24,9 @@ import { ActivationComponent } from './activation/activation.component';
 import { HelpComponent } from './help/help.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileUpdateComponent } from './profile/profile-update.component';
+import { PasswordUpdateComponent } from './profile/password-update.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +38,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ActivationComponent,
     HelpComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent   
+    ResetPasswordComponent,
+    ProfileComponent,
+    ProfileUpdateComponent,
+    PasswordUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,11 +52,16 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     BrowserAnimationsModule,
     LayoutModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule,
   ],
   providers: [
     interceptorProvider,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
