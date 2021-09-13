@@ -23,6 +23,7 @@ const routes: Routes = [
   {path: 'reset-password/:code', component: ResetPasswordComponent, canActivate: [LoginGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserGuardService], data: {expectedRole: ['employer','employee']}},
   {path: 'profile/update', component: ProfileUpdateComponent, canActivate: [UserGuardService], data: {expectedRole: ['employee','employer']}},
+  {path: 'profile/update', component: ProfileUpdateComponent, canActivate: [UserGuardService], data: {expectedRole: ['employee','employer']}},
   {path: 'profile/password-update', component: PasswordUpdateComponent, canActivate: [UserGuardService], data: {expectedRole: ['employer','employee']}},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

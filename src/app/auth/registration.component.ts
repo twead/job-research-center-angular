@@ -6,7 +6,6 @@ import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { PasswordValidation } from '../validation/password-validation';
 
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
