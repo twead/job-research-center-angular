@@ -1,0 +1,41 @@
+<app-navigation></app-navigation>
+<div class="card text-center">
+  <div class="card-header">
+    <h1>Felhasználó adatai:</h1>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Név:</th>
+              <td>{{employee?.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{{employee?.email}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Születési dátum:</th>
+              <td *ngIf="employee?.dateOfBorn">{{employee?.dateOfBorn}}</td>
+              <td *ngIf="!employee?.dateOfBorn">Nincs megadva</td>
+            </tr>
+            <tr>
+              <th scope="row">Telefonszám:</th>
+              <td *ngIf="employee?.phoneNumber">{{employee?.phoneNumber}}</td>
+              <td *ngIf="!employee?.phoneNumber">Nincs megadva</td>
+            </tr>
+            <tr>
+              <th scope="row">Státusz:</th>
+              <td *ngIf="employee?.isEnabled" class="isValidated">Email sikeresen visszaigazolva</td>
+              <td *ngIf="!employee?.isEnabled" class="noValidated">Email aktiválás még nem történt meg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button (click)="updateEmployee(employee?.id)" class="btn btn-info">Módosítás</button>
+      <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+    </div>
+  </div>
+</div>

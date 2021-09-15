@@ -1,0 +1,23 @@
+table{
+    width: 50%;
+    margin:auto;
+    border: 1px solid black;
+}
+table tr{
+    text-align: left;
+}
+.isValidated{
+    color: green;
+}
+.noValidated{
+    color: red;
+}
+button{
+    margin: 10px 20px;
+}
+@media only screen and (max-width: 767px) {
+    table{
+        width: 100%;}
+    }
+
+  
