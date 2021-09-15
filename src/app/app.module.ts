@@ -9,13 +9,20 @@ import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -27,6 +34,14 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileUpdateComponent } from './profile/profile-update.component';
 import { PasswordUpdateComponent } from './profile/password-update.component';
+import { EmployeeListComponent } from './admin-dashboard/employee-list/employee-list.component';
+import { EmployerListComponent } from './admin-dashboard/employer-list/employer-list.component';
+import { EmployeeDetailsComponent } from './admin-dashboard/employee-list/employee-details.component';
+import { EmployeeUpdateComponent } from './admin-dashboard/employee-list/employee-update.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EmployerDetailsComponent } from './admin-dashboard/employer-list/employer-details.component';
+import { EmployerUpdateComponent } from './admin-dashboard/employer-list/employer-update.component';
+import { MatModalComponent } from './mat-modal/mat-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +57,14 @@ import { PasswordUpdateComponent } from './profile/password-update.component';
     ProfileComponent,
     ProfileUpdateComponent,
     PasswordUpdateComponent,
+    EmployeeListComponent,
+    EmployerListComponent,
+    EmployeeDetailsComponent,
+    EmployeeUpdateComponent,
+    PageNotFoundComponent,
+    EmployerDetailsComponent,
+    EmployerUpdateComponent,
+    MatModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,12 +75,20 @@ import { PasswordUpdateComponent } from './profile/password-update.component';
     BrowserAnimationsModule,
     LayoutModule,
     MatDatepickerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDialogModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireStorageModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     interceptorProvider,

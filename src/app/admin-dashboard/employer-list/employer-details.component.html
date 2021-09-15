@@ -1,0 +1,54 @@
+<app-navigation></app-navigation>
+<div class="card text-center">
+  <div class="card-header">
+    <h1>Felhasználó adatai:</h1>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+    <div class="profileImage">
+        <img *ngIf="picture" src="{{imagePath}}">
+        <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
+    </div>
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Név:</th>
+              <td>{{employer?.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{{employer?.email}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Születési dátum:</th>
+              <td *ngIf="employer?.dateOfBorn">{{employer?.dateOfBorn}}</td>
+              <td *ngIf="!employer?.dateOfBorn">Nincs megadva</td>
+            </tr>
+            <tr>
+              <th scope="row">Telefonszám:</th>
+              <td *ngIf="employer?.phoneNumber">{{employer?.phoneNumber}}</td>
+              <td *ngIf="!employer?.phoneNumber">Nincs megadva</td>
+            </tr>
+            <tr>
+              <th scope="row">Email státusz:</th>
+              <td *ngIf="employer?.isEnabled" class="isValidated">Email sikeresen visszaigazolva</td>
+              <td *ngIf="!employer?.isEnabled" class="noValidated">Email aktiválás még nem történt meg</td>
+            </tr>
+            <tr>
+                <th scope="row">Státusz:</th>
+                <td *ngIf="employer?.employer.validated" class="isValidated">
+                    Személyazonosság ellenőrizve, kérelem visszaigazolva
+                </td>
+                <td *ngIf="!employer?.employer.validated" class="noValidated">
+                    Személyazonosság még nem ellenőrizve
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <button (click)="updateEmployer(employer?.id)" class="btn btn-info">Módosítás</button>
+      <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+    </div>
+  </div>
+</div>

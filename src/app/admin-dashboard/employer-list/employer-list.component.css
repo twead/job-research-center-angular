@@ -1,0 +1,22 @@
+table {
+    width: 100%; 
+  }
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  mat-header-cell{
+    font-weight: bold;
+    height: 10px;
+  }
+  button{
+    margin: 10px;
+  }
+  h2{
+    text-align: center;
+  }
+  mat-paginator {
+    display: flex;
+    justify-content: center;
+  }
+    

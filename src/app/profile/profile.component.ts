@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   isEmployer = false;
   isRedirect: boolean;
   storageURL = environment.storageURL;
+  szakdolgozatEmail = environment.szakdolgozatEmail;
   imagePath: string;
   picture: string;
 
