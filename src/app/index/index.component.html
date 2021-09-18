@@ -1,5 +1,11 @@
 <app-navigation></app-navigation>
 <div class="container text-center">
-    <h2 *ngIf="!email">Kérlek jelentkezz be!</h2>
-    <h2 *ngIf="email">Felhasználó bejelentkezve: {{email}} - tesztoldal</h2>
+  <h2 *ngIf="!email">Kérlek jelentkezz be!</h2>
+  <h2 *ngIf="email && !isAdmin">Felhasználó bejelentkezve: {{email}} - tesztoldal</h2>
+  <div *ngIf="isAdmin">
+    <h2>Üdvözöllek Admin!</h2>
+    <div class="imageAdmin">
+      <img src="{{imagePath}}">
+    </div>
   </div>
+</div>

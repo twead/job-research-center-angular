@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 import { MatModalComponent } from 'src/app/mat-modal/mat-modal.component';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-employer-list',
@@ -26,11 +27,26 @@ export class EmployerListComponent implements AfterViewInit {
   errorMessage: string;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
-    private toastr: ToastrService, public matDialog: MatDialog) { }
+    private toastr: ToastrService, public matDialog: MatDialog,
+    private tokenService: TokenService) { }
 
   ngAfterViewInit(): void {
-    this.getEmployers();
-    this.dataSource = new MatTableDataSource(this.employers);
+    if (this.roleCheck()) {
+      this.getEmployers();
+      this.dataSource = new MatTableDataSource(this.employers);
+    }
+  }
+
+  roleCheck() {
+    if (!this.tokenService.IsAdmin()) {
+      this.router.navigate(['']);
+      this.toastr.error('Nincs megfelelő jogosultságod!', 'Hiba!', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      }
+      );
+      return false;
+    }
+    return true;
   }
 
   getEmployers() {

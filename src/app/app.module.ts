@@ -42,6 +42,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EmployerDetailsComponent } from './admin-dashboard/employer-list/employer-details.component';
 import { EmployerUpdateComponent } from './admin-dashboard/employer-list/employer-update.component';
 import { MatModalComponent } from './mat-modal/mat-modal.component';
+import { CreateAdvertisementComponent } from './advertisement/employer-advertisement/create-advertisement.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MatModalComponent } from './mat-modal/mat-modal.component';
     EmployerDetailsComponent,
     EmployerUpdateComponent,
     MatModalComponent,
+    CreateAdvertisementComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-employer-update',
@@ -23,7 +24,8 @@ export class EmployerUpdateComponent implements OnInit {
   errorMessage: string;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private adminService: AdminDashboardService, private toastr: ToastrService, private fb: FormBuilder) {
+    private adminService: AdminDashboardService, private toastr: ToastrService,
+    private fb: FormBuilder, private tokenService: TokenService) {
     this.form = fb.group({
       name: ['', [Validators.required]],
       phoneNumber: ['', [Validators.nullValidator]],
@@ -32,8 +34,25 @@ export class EmployerUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    if (this.roleCheck()) {
+      this.id = this.route.snapshot.params['id'];
+      this.getEmployer();
+    }
+  }
 
+  roleCheck() {
+    if (!this.tokenService.IsAdmin()) {
+      this.router.navigate(['']);
+      this.toastr.error('Nincs megfelelő jogosultságod!', 'Hiba!', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      }
+      );
+      return false;
+    }
+    return true;
+  }
+
+  getEmployer() {
     this.adminService.getUserById(this.id)
       .subscribe(
         data => {
@@ -49,9 +68,6 @@ export class EmployerUpdateComponent implements OnInit {
           });
 
         });
-  }
-  get f() {
-    return this.form.controls;
   }
 
   updateEmployer() {
@@ -72,6 +88,10 @@ export class EmployerUpdateComponent implements OnInit {
         });
       }
       );
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   onSubmit() {
