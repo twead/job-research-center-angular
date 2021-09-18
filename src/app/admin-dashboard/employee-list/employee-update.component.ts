@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenService } from 'src/app/service/token.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class EmployeeUpdateComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private adminService: AdminDashboardService, private toastr: ToastrService, private fb: FormBuilder) {
+    private adminService: AdminDashboardService, private toastr: ToastrService,
+    private fb: FormBuilder, private tokenService: TokenService) {
 
     this.form = fb.group({
       name: ['', [Validators.required]],
@@ -36,8 +38,25 @@ export class EmployeeUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    if (this.roleCheck()) {
+      this.id = this.route.snapshot.params['id'];
+      this.getEmployee();
+    }
+  }
 
+  roleCheck() {
+    if (!this.tokenService.IsAdmin()) {
+      this.router.navigate(['']);
+      this.toastr.error('Nincs megfelelő jogosultságod!', 'Hiba!', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      }
+      );
+      return false;
+    }
+    return true;
+  }
+
+  getEmployee() {
     this.adminService.getUserById(this.id)
       .subscribe(
         data => {
@@ -55,28 +74,28 @@ export class EmployeeUpdateComponent implements OnInit {
         });
   }
 
-  get f() {
-    return this.form.controls;
-  }
-
   updateEmployee() {
     this.employee.name = this.name;
     this.employee.dateOfBorn = this.dateOfBorn;
     this.employee.phoneNumber = this.phoneNumber;
 
-     this.adminService.updateUser(this.id, this.employee)
-       .subscribe(data => {
-         this.toastr.success('Sikeres módosítás!', 'OK', {
-           timeOut: 3000,  positionClass: 'toast-top-center',
-         });
-         this.backToList();
-       }, err => {
-         this.errorMessage = err.error.message;
-         this.toastr.error(this.errorMessage, 'Hiba!', {
-           timeOut: 3000,  positionClass: 'toast-top-center',
-         });
-       }
-     );
+    this.adminService.updateUser(this.id, this.employee)
+      .subscribe(data => {
+        this.toastr.success('Sikeres módosítás!', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+        this.backToList();
+      }, err => {
+        this.errorMessage = err.error.message;
+        this.toastr.error(this.errorMessage, 'Hiba!', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+      );
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   onSubmit() {

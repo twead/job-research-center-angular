@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,30 +8,48 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 import { MatModalComponent } from 'src/app/mat-modal/mat-modal.component';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css']
 })
-export class EmployeeListComponent implements AfterViewInit {
+export class EmployeeListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   employees: Array<User> = [];
   displayedColumns: string[] = ['name', 'email', 'actions'];
   dataSource: MatTableDataSource<any>;
   errorMessage: string;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
-    private toastr: ToastrService, public matDialog: MatDialog) {
+    private toastr: ToastrService, public matDialog: MatDialog,
+    private tokenService: TokenService) {
     ;
+  }
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.getEmployees();
-    this.dataSource = new MatTableDataSource(this.employees);
+    if (this.roleCheck()) {
+      this.getEmployees();
+      this.dataSource = new MatTableDataSource(this.employees);
+    }
+  }
+
+  roleCheck() {
+    if (!this.tokenService.IsAdmin()) {
+      this.router.navigate(['']);
+      this.toastr.error('Nincs megfelelő jogosultságod!', 'Hiba!', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      }
+      );
+      return false;
+    }
+    return true;
   }
 
   getEmployees() {
@@ -49,15 +67,6 @@ export class EmployeeListComponent implements AfterViewInit {
         });
       }
     );
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   getEmployeeDetails(id: number) {
@@ -99,5 +108,14 @@ export class EmployeeListComponent implements AfterViewInit {
       }
     }
     );
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

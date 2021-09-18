@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
+import { EmployerService } from '../service/employer.service';
 
 
 @Component({
@@ -11,12 +12,14 @@ import { Router } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent{
+export class NavigationComponent {
 
   isLogged = false;
   isEmployee = false;
   isEmployer = false;
   isAdmin = false;
+  email: string = this.tokenService.getEmail();
+  isValidated = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -25,21 +28,31 @@ export class NavigationComponent{
     );
 
 
-    constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService, 
-      private router: Router) {}
+  constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService,
+    private router: Router, private employerService: EmployerService) { }
 
-    ngOnInit(): void {
-      this.isLogged = this.tokenService.isLogged();
-      this.isAdmin = this.tokenService.IsAdmin();
-      this.isEmployer = this.tokenService.IsEmployer();
-      this.isEmployee = this.tokenService.IsEmployee();
+  ngOnInit(): void {
+    this.isLogged = this.tokenService.isLogged();
+    this.isAdmin = this.tokenService.IsAdmin();
+    this.isEmployer = this.tokenService.IsEmployer();
+    this.isEmployee = this.tokenService.IsEmployee();
+    if (this.isEmployer)
+      this.isValid();
+  }
 
-    }
+  onLogout(): void {
+    this.tokenService.logOut();
+    window.location.reload()
+    this.router.navigate(['/']);
+  }
 
-    onLogout(): void {
-        this.tokenService.logOut();
-        window.location.reload()
-        this.router.navigate(['/']);
-    }
+  isValid() {
+    this.employerService.isValidated(this.email)
+      .subscribe(
+        data => {
+          this.isValidated = data;
+        }
+      );
+  }
 
 }

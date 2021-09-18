@@ -19,6 +19,7 @@ import { EmployerListComponent } from './admin-dashboard/employer-list/employer-
 import { EmployerDetailsComponent } from './admin-dashboard/employer-list/employer-details.component';
 import { EmployerUpdateComponent } from './admin-dashboard/employer-list/employer-update.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CreateAdvertisementComponent } from './advertisement/employer-advertisement/create-advertisement.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'employer/details/:id', component: EmployerDetailsComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
   { path: 'employee/update/:id', component: EmployeeUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
   { path: 'employer/update/:id', component: EmployerUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
+  { path: 'employer/advertisement/create', component: CreateAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ];
 
