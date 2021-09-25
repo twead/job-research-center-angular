@@ -1,11 +1,158 @@
 <app-navigation></app-navigation>
-<div class="container text-center">
-  <h2 *ngIf="!email">Kérlek jelentkezz be!</h2>
-  <h2 *ngIf="email && !isAdmin">Felhasználó bejelentkezve: {{email}} - tesztoldal</h2>
-  <div *ngIf="isAdmin">
+<div class="container">
+  <div *ngIf="!email">
+    <div class="card">
+      <div class="card-header">
+        Szakdolgozat - Álláshirdetések pályakezdők számára
+      </div>
+      <div class="card-body">
+        <h3 class="card-title text-center">Üdvözöllek az oldalon!</h3>
+        <div class="card-text">
+          <div class="alert alert-warning">
+            Kérlek, hogy az álláslehetőségek meghirdetéséhez, illetve megtekintéséhez jelentkezz be,
+            vagy amennyiben még nem regisztráltál, akkor regisztrálj,
+            hogy zavartalanul és kényelmesen tudd használni az oldal által nyújtott funkciókat.
+          </div>
+          <p class="text-center">
+            Álláskínálatunk folyamatosan bővül, jelenleg mintegy <span
+              class="records">{{numberOfRecords?.employerNumber}}</span> álláshirdető és <span
+              class="records">{{numberOfRecords?.advertisementNumber}} </span> állás érhető el.
+          </p>
+        </div>
+        <div class="text-center">
+          <a routerLink="/login" class="btn btn-primary">Bejelentkezés</a>
+          <a routerLink="/registration" class="btn btn-primary">Regisztráció</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isAdmin" class="text-center">
     <h2>Üdvözöllek Admin!</h2>
     <div class="imageAdmin">
       <img src="{{imagePath}}">
+    </div>
+  </div>
+
+  <div *ngIf="isEmployee">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">Üdvözöllek! Jelenleg az alábbi álláslehetőségek vannak:</h3>
+        <div class="card-text">
+          <mat-form-field appearance="fill">
+            <mat-label><b>Szűrés állásajánlatra:</b></mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+          </mat-form-field>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort class="table-striped">
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Cím: </b></th>
+                <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+              </ng-container>
+              <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Város: </b></th>
+                <td mat-cell *matCellDef="let row">
+                  <span *ngIf="row.city"> {{row.city}} </span>
+                  <span *ngIf="!row.city"> Nincs megadva! </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Típus: </b></th>
+                <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+              </ng-container>
+              <ng-container matColumnDef="payment">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Fizetés (Ft): </b></th>
+                <td mat-cell *matCellDef="let row">
+                  <span *ngIf="row.payment!=0"> {{row.payment}} Ft</span>
+                  <span *ngIf="row.payment==0"> Nincs megadva! </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="dateOfUpload">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Hirdetés dátuma: </b></th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.dateOfUpload | date:'yyyy-MM-dd HH:mm'}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Bővebben: </b></th>
+                <td mat-cell *matCellDef="let row">
+                  <button class="btn btn-info" (click)="getAdvertisementDetails(row.id)">Részletek</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="applied">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row">
+                  <span *ngIf="existApplication(row.id)">
+                    <i-bs name="check-circle-fill" width="20" height="20">
+                    </i-bs>
+                  </span>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Nincs találati eredmény az alábbi névre: "{{input.value}}"</td>
+              </tr>
+            </table>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Álláshirdetések száma / oldal">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isEmployer && !isValidated">
+    <div class="card">
+      <div class="card-header">
+        Szakdolgozat - Álláshirdetések pályakezdők számára
+      </div>
+      <div class="card-body">
+        <h3 class="card-title text-center">Kérelmed még folyamatban!</h3>
+        <div class="card-text">
+          <div class="alert alert-danger">
+            Köszönjük, hogy regisztráltál az oldalunkra, mint álláshirdető! Közös célunk,
+            hogy a pályakezdő, kevés tapasztalattal rendelkező álláskeresők számára egy
+            kényelmes környezetet teremtsünk, ahol biztonságosan kereshetnek állást.
+            Annak érdekében hogy ezt garantálni tudjuk, minden álláshirdetőt felülvizsgálunk, és
+            egyeztetünk a további információkról. <br>
+            Munkatársaink hamarosan keresni fogják ez ügyben a regisztrációkor megadott elérhetőségen, a döntésünkről
+            pedig tájékoztatunk.
+          </div>
+          <p class="text-center">
+            Bármilyen kérdés, probléma esetén kérünk, hogy az alábbi email címre írj:
+            <b>szakdolgozat.jobresearchcenter@gmail.com</b>
+          </p>
+        </div>
+        <div class="text-center">
+          <a routerLink="/profile" class="btn btn-primary">Profilom</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isEmployer && isValidated">
+    <div class="card">
+      <div class="card-header">
+        Szakdolgozat - Álláshirdetések pályakezdők számára
+      </div>
+      <div class="card-body">
+        <h3 class="card-title text-center">Üdvözöllek az oldalon!</h3>
+        <div class="card-text">
+          <div class="alert alert-success">
+            Köszönjük, hogy regisztráltál az oldalunkra, mint álláshirdető! Közös célunk,
+            hogy a pályakezdő, kevés tapasztalattal rendelkező álláskeresők számára egy
+            kényelmes környezetet teremtsünk, ahol biztonságosan kereshetnek állást.
+          </div>
+          <p class="text-center">
+            Bármilyen kérdés, probléma esetén kérünk, hogy az alábbi email címre írj:
+            <b>szakdolgozat.jobresearchcenter@gmail.com</b>
+          </p>
+        </div>
+        <div class="text-center">
+          <a routerLink="employer/advertisement/create" class="btn btn-success">Új Álláshirdetés</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

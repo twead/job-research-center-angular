@@ -5,7 +5,7 @@
   </div>
   <div class="card-body">
     <div class="card-text">
-      <div class="profileImage">
+      <div *ngIf="isEmployer" class="profileImage">
         <img *ngIf="picture" src="{{imagePath}}">
         <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
       </div>

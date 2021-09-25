@@ -1,0 +1,117 @@
+<app-navigation></app-navigation>
+<div class="card">
+    <div class="card-header">
+        <h3>Részletek:</h3>
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-center">
+                                <h3 class="title">Állás adatai:</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cím:</th>
+                            <td>{{details.advertisement.title}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Típus:</th>
+                            <td>{{details.advertisement.type}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Helyszín:</th>
+                            <td *ngIf="details.advertisement.city">{{details.advertisement.city}}</td>
+                            <td *ngIf="!details.advertisement.city">Nincs megadva!</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fizetés:</th>
+                            <td *ngIf="details.advertisement.payment!=0">{{details.advertisement.payment}} Ft</td>
+                            <td *ngIf="details.advertisement.payment==0">Nincs megadva!</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Álláshirdetés feltöltésének ideje:</th>
+                            <td>{{details.advertisement.dateOfUpload | date:'yyyy/MM/dd - HH:mm'}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Leírás:</th>
+                            <td><textarea
+                                    style="width: 100%; min-height: 200px; border: 0px;">{{details.advertisement.description}}</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-center">
+                                <h3 class="title">Jelentkezésem adatai:</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Jelentkezés ideje:</th>
+                            <td>{{details.application.dateOfApplication | date:'yyyy/MM/dd - HH:mm'}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Feltöltött önéletrajz:</th>
+                            <td> <a href='{{pdfPath}}' download="{{pdfPath}}" target="_blank">{{pdf}}</a></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Megjegyzés:</th>
+                            <td *ngIf="details.application.comment"><textarea
+                                    style="width: 100%; min-height: 200px; border: 0px;">{{details.application.comment}}</textarea>
+                            </td>
+                            <td *ngIf="!details.application.comment">Nincs megadva!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-center">
+                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                    data-target="#collapseEmployerDetails" aria-expanded="false"
+                    aria-controls="collapseEmployerDetails">
+                    Álláshirdető adatai <i-bs name="arrow-down-circle-fill" width="25" height="25">
+                    </i-bs>
+                </button>
+            </p>
+            <div class="collapse" id="collapseEmployerDetails">
+                <div class="card card-body">
+                    <div class="profileImage">
+                        <img *ngIf="picture" src="{{imagePath}}">
+                        <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" colspan="2">
+                                        <h3>Álláshirdető adatai:</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Név:</th>
+                                    <td>{{details.user.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email cím:</th>
+                                    <td>{{details.user.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Telefonszám:</th>
+                                    <td>{{details.user.phoneNumber}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button (click)="backToList()" class="btn btn-primary">Vissza a jelentkezéseimhez</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,7 @@ export const environment = {
   authURL: "http://localhost:8080/auth/",
   userURL: "http://localhost:8080/api/profile/",
   employerURL: "http://localhost:8080/employer/advertisement/",
+  employeeURL: "http://localhost:8080/employee/advertisement/",
   storageURL: "https://firebasestorage.googleapis.com/v0/b/jobresearchcenter-feb2b.appspot.com/o/",
   dashboardURL: "http://localhost:8080/api/dashboard/",
   szakdolgozatEmail: "szakdolgozat.jobresearchcenter@gmail.com"

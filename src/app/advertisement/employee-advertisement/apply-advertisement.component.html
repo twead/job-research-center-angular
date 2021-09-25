@@ -1,0 +1,74 @@
+<app-navigation></app-navigation>
+<div class="card">
+    <div class="card-body">
+        <div class="card-text">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row" colspan="2">
+                                <h3>Állás adatai:</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cím:</th>
+                            <td>{{details.advertisement.title}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Típus:</th>
+                            <td>{{details.advertisement.type}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Helyszín:</th>
+                            <td *ngIf="details.advertisement.city"> {{details.advertisement.city}} </td>
+                            <td *ngIf="!details.advertisement.city"> Nincs megadva! </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fizetés:</th>
+                            <td *ngIf="details.advertisement.payment!=0">{{details.advertisement.payment}} Ft</td>
+                            <td *ngIf="details.advertisement.payment==0">Nincs megadva!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <h3>Jelentkezés:</h3>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <br>
+                <div class="form-group row">
+                    <div class="alert alert-danger" *ngIf="!form.valid && form.touched">
+                        <p>Feltölthető fájformátum: PDF</p>
+                        <p>Maximum fileméret: 1Mb</p>
+                    </div>
+                    <label for="cv" class="col-sm-2 col-form-label">Önéletrajz:</label>
+                    <div class="col-sm-10">
+                        <input [writeFile]="true " accept="application/pdf" type="file" id="cv" formControlName="cv"
+                            placeholder="Fájl kiválasztása" [(ngModel)]="cv" class="form-control"
+                            (change)="selectFile($event)" required />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="alert alert-warning">
+                        Ha szeretnél plusz információt hozzáadni a jelentkezésedhez:
+                    </div>
+                    <label for="comment" class="col-sm-2 col-form-label">Megjegyzés:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="comment" name="comment" formControlName="comment" rows="6"
+                            [(ngModel)]="comment"></textarea>
+                    </div>
+                </div>
+                <p class="alert alert-danger warning">
+                    <b>Figyelem!</b> A jelentkezés beküldése után nem lehet módosítani a jelentkezést, ezért
+                    kérünk, hogy a kellemetlenségek elkerülése miatt ellenőrizd az űrlap helyességét!
+                </p>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success" [disabled]="!form.valid">
+                        Jelentkezek</button>
+                </div>
+            </form>
+            <div class="text-center">
+                <button (click)="backToAdvertisement(details.advertisement.id)" class="btn btn-primary">Mégsem</button>
+            </div>
+        </div>
+    </div>
+</div>

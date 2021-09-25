@@ -84,10 +84,11 @@ export class CreateAdvertisementComponent implements OnInit {
         this.toastr.success('Sikeres állás meghirdetés!', 'OK', {
           timeOut: 2000, positionClass: 'toast-top-center'
         });
+        this.reload();
       },
       err => {
         this.errorMessage = err.error.message;
-        this.toastr.error(this.errorMessage, 'A regisztráció nem sikerült!', {
+        this.toastr.error(this.errorMessage, 'A létrehozás nem sikerült!', {
           timeOut: 2000, positionClass: 'toast-top-center',
         });
 
@@ -101,6 +102,10 @@ export class CreateAdvertisementComponent implements OnInit {
 
   submit() {
     console.log(this.form.value);
+  }
+
+  reload(){
+    this.form.reset();
   }
 
 }

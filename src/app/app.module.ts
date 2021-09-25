@@ -43,6 +43,12 @@ import { EmployerDetailsComponent } from './admin-dashboard/employer-list/employ
 import { EmployerUpdateComponent } from './admin-dashboard/employer-list/employer-update.component';
 import { MatModalComponent } from './mat-modal/mat-modal.component';
 import { CreateAdvertisementComponent } from './advertisement/employer-advertisement/create-advertisement.component';
+import { ApplyAdvertisementComponent } from './advertisement/employee-advertisement/apply-advertisement.component';
+import { DetailsAdvertisementComponent } from './advertisement/employee-advertisement/details-advertisement.component';
+import { MatNativeDateModule} from '@angular/material/core';
+import { ListApplicationComponent } from './application/employee-application/list-application.component';
+import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -66,7 +72,11 @@ import { CreateAdvertisementComponent } from './advertisement/employer-advertise
     EmployerDetailsComponent,
     EmployerUpdateComponent,
     MatModalComponent,
-    CreateAdvertisementComponent
+    CreateAdvertisementComponent,
+    ApplyAdvertisementComponent,
+    DetailsAdvertisementComponent,
+    ListApplicationComponent,
+    DetailsApplicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +87,7 @@ import { CreateAdvertisementComponent } from './advertisement/employer-advertise
     BrowserAnimationsModule,
     LayoutModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
@@ -90,7 +101,8 @@ import { CreateAdvertisementComponent } from './advertisement/employer-advertise
     AngularFireStorageModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [
     interceptorProvider,

@@ -27,6 +27,9 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string;
   confirmpassword: string;
 
+  minDate = new Date(1900, 1, 1);
+  maxDate = new Date();
+
   constructor(
     private authService: AuthService,
     private router: Router,

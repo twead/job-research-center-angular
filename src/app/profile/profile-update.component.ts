@@ -36,6 +36,9 @@ export class ProfileUpdateComponent implements OnInit {
   phoneNumber: string;
   picture: string;
 
+  minDate = new Date(1900, 1, 1);
+  maxDate = new Date();
+
   constructor(private tokenService: TokenService, private userProfileService: UserProfileService,
     private toastr: ToastrService, private router: Router, private https: HttpClient,
     private fb: FormBuilder, private uploadService: UploadFileService) {
@@ -48,7 +51,6 @@ export class ProfileUpdateComponent implements OnInit {
         profilePhoto: ['', [
           RxwebValidators.extension({ extensions: ["jpeg", "gif", "jpg", "gif"] }),
           RxwebValidators.fileSize({ maxSize: 1048576 })
-
         ]]
       })
   }
@@ -106,6 +108,7 @@ export class ProfileUpdateComponent implements OnInit {
       }
       );
   }
+
   uploadImage() {
     const currentFileUpload = this.selectedFiles.item(0);
     this.picture = this.updateProfile.employer.picture;

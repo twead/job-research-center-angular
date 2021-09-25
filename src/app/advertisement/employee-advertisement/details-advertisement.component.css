@@ -1,0 +1,16 @@
+.profileImage{
+    margin: auto;
+    text-align: center;
+  }
+.profileImage img{
+    margin: auto;
+    width: 200px;
+    text-align: center;
+  }
+button{
+    margin: 10px 20px;
+}
+.title{
+  margin: 10px 0px;
+  text-align: left;
+}
