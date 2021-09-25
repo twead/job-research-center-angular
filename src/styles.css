@@ -6,6 +6,9 @@ body {
   display: flex;
   flex-direction: column;
 }
+.container{
+  width: 100%;
+}
 .content {
   flex: 1 0 auto;
 }
@@ -13,6 +16,36 @@ footer {
   flex-shrink: 0;
   color: white;
   width: 100%;
+}
+table{
+  border: 3px solid plum;
+}
+table {
+  width: 100%; 
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+mat-header-cell{
+  font-weight: bold;
+  height: 10px;
+}
+mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+.card{
+  border: 4px solid purple;
+  width: 100%; 
+}
+.profileImage{
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+.photo input, button{
+  margin-bottom: 10px;
 }
 
 .toast-center-center {

@@ -1,0 +1,27 @@
+table{
+  border: 3px solid plum;
+}
+
+.profileImage{
+    margin: auto;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+.profileImage img{
+    margin: auto;
+    width: 200px;
+    text-align: center;
+  }
+button{
+    margin: 10px 20px;
+}
+.title{
+  margin: 10px 0px;
+  text-align: left;
+}
+
+@media only screen and (max-width: 972px) {
+  .card{
+      width: 100%;
+  }
+}

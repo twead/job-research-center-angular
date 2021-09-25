@@ -13,15 +13,20 @@
             </div>
             <label for="name" class="col-sm-2 col-form-label">Teljes név:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" 
-                [(ngModel)]="name" formControlName="name" maxlength="50" required>
+              <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" [(ngModel)]="name"
+                formControlName="name" maxlength="50" required>
             </div>
           </div>
           <div class=" md-outline input-with-post-icon datepicker form-group row">
             <label for="dateOfBorn" class="col-sm-2 col-form-label">Születés dátuma:</label>
             <div class="col-sm-10">
-              <input placeholder="Születési idő" type="date" [(ngModel)]="dateOfBorn" name="dateOfBorn" 
-                id="dateOfBorn" class="form-control" formControlName="dateOfBorn" maxvalue=date()>
+              <mat-form-field appearance="fill" style="width: 100%; ">
+                <mat-label>Születés dátuma:</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="dateOfBorn" formControlName="dateOfBorn"
+                  [min]="minDate" [max]="maxDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
             </div>
           </div>
           <div class="form-group row">

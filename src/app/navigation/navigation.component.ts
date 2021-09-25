@@ -6,7 +6,6 @@ import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
 import { EmployerService } from '../service/employer.service';
 
-
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -26,7 +25,6 @@ export class NavigationComponent {
       map(result => result.matches),
       shareReplay()
     );
-
 
   constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenService,
     private router: Router, private employerService: EmployerService) { }

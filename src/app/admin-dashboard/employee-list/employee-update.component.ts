@@ -25,6 +25,8 @@ export class EmployeeUpdateComponent implements OnInit {
   phoneNumber: string;
   errorMessage: string;
 
+  minDate = new Date(1900, 1, 1);
+  maxDate = new Date();
 
   constructor(private route: ActivatedRoute, private router: Router,
     private adminService: AdminDashboardService, private toastr: ToastrService,

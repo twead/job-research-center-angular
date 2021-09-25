@@ -20,6 +20,10 @@ import { EmployerDetailsComponent } from './admin-dashboard/employer-list/employ
 import { EmployerUpdateComponent } from './admin-dashboard/employer-list/employer-update.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreateAdvertisementComponent } from './advertisement/employer-advertisement/create-advertisement.component';
+import { DetailsAdvertisementComponent } from './advertisement/employee-advertisement/details-advertisement.component';
+import { ApplyAdvertisementComponent } from './advertisement/employee-advertisement/apply-advertisement.component';
+import { ListApplicationComponent } from './application/employee-application/list-application.component';
+import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -40,6 +44,10 @@ const routes: Routes = [
   { path: 'employee/update/:id', component: EmployeeUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
   { path: 'employer/update/:id', component: EmployerUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
   { path: 'employer/advertisement/create', component: CreateAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'employee/advertisement/details/:id', component: DetailsAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'employee/advertisement/apply/:id', component: ApplyAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'employee/application/list', component: ListApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'employee/application/details/:id', component: DetailsApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ];
 
