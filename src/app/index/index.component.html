@@ -6,7 +6,7 @@
         Szakdolgozat - Álláshirdetések pályakezdők számára
       </div>
       <div class="card-body">
-        <h3 class="card-title text-center">Üdvözöllek az oldalon!</h3>
+        <h3 class="card-title text-center">Üdvözöllek az álláskereső pályakezdők számára létrehozott weboldalon!</h3>
         <div class="card-text">
           <div class="alert alert-warning">
             Kérlek, hogy az álláslehetőségek meghirdetéséhez, illetve megtekintéséhez jelentkezz be,
@@ -20,18 +20,32 @@
           </p>
         </div>
         <div class="text-center">
-          <a routerLink="/login" class="btn btn-primary">Bejelentkezés</a>
-          <a routerLink="/registration" class="btn btn-primary">Regisztráció</a>
+          <a routerLink="/login" class="btn btn-primary">
+            <i-bs name="person-lines-fill" width="25" height="25">
+            </i-bs> Bejelentkezés
+          </a>
+          <a routerLink="/registration" class="btn btn-primary">
+            <i-bs name="person-plus-fill" width="25" height="25">
+            </i-bs> Regisztráció
+          </a>
         </div>
       </div>
     </div>
   </div>
 
   <div *ngIf="isAdmin" class="text-center">
-    <h2>Üdvözöllek Admin!</h2>
-    <div class="imageAdmin">
-      <img src="{{imagePath}}">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Üdvözöllek Admin!</h5>
+        <p class="alert alert-success">A "Felügyelet" menüpontban tudod az álláskeresők, illetve álláshirdetők adatait megtekinteni, 
+          illetve a szükséges felhasználói felügyeletet elvégezni.</p>
+        <div class="imageAdmin">
+          <img src="{{imagePath}}">
+        </div>
+      </div>
     </div>
+   
+    
   </div>
 
   <div *ngIf="isEmployee">

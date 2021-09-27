@@ -3,13 +3,22 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/login"><strong>Bejelentkezés</strong></a>
+        <a class="nav-link active" routerLink="/login"><strong>
+            <i-bs name="person-lines-fill" width="25" height="25">
+            </i-bs> Bejelentkezés
+          </strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/registration"><strong>Regisztráció</strong></a>
+        <a class="nav-link" routerLink="/registration"><strong>
+            <i-bs name="person-plus-fill" width="25" height="25">
+            </i-bs> Regisztráció
+          </strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/help"><strong>Tájékoztató</strong></a>
+        <a class="nav-link" routerLink="/help"><strong>
+            <i-bs name="info-circle-fill" width="25" height="25">
+            </i-bs> Tájékoztató
+          </strong></a>
       </li>
     </ul>
   </div>
@@ -32,9 +41,15 @@
                 [(ngModel)]="password" required>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Bejelentkezek</button><br /><br />
-          <a routerLink="/forgot-password">Elfelejtettem a jelszavam</a>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            <i-bs name="check-circle-fill" width="25" height="25">
+            </i-bs> Bejelentkezek
+          </button><br />
         </form>
+        <button type="submit" (click)="forgotPassword()" class="btn btn-danger">
+          <i-bs name="exclamation-triangle-fill" width="25" height="25">
+          </i-bs> Elfelejtettem a jelszavam
+        </button>
       </div>
     </div>
   </div>

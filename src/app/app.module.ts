@@ -49,6 +49,8 @@ import { MatNativeDateModule} from '@angular/material/core';
 import { ListApplicationComponent } from './application/employee-application/list-application.component';
 import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { NewMessageComponent } from './message/new-message.component';
+import { AllMessageComponent } from './message/all-message.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     DetailsAdvertisementComponent,
     ListApplicationComponent,
     DetailsApplicationComponent,
+    NewMessageComponent,
+    AllMessageComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,13 +3,22 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login"><strong>Bejelentkezés</strong></a>
+        <a class="nav-link" routerLink="/login"><strong>
+            <i-bs name="person-lines-fill" width="25" height="25">
+            </i-bs> Bejelentkezés
+          </strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/registration"><strong>Regisztráció</strong></a>
+        <a class="nav-link active" routerLink="/registration"><strong>
+            <i-bs name="person-plus-fill" width="25" height="25">
+            </i-bs> Regisztráció
+          </strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/help"><strong>Tájékoztató</strong></a>
+        <a class="nav-link" routerLink="/help"><strong>
+            <i-bs name="info-circle-fill" width="25" height="25">
+            </i-bs> Tájékoztató
+          </strong></a>
       </li>
     </ul>
   </div>
@@ -110,7 +119,10 @@
               [(ngModel)]="isEmployer">
             <label class="form-check-label" for="isEmployer">Munkaadó vagyok</label>
           </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Regisztrálok</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            <i-bs name="check-circle-fill" width="25" height="25">
+            </i-bs> Regisztrálok
+          </button>
         </form>
       </div>
     </div>

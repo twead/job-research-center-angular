@@ -5,7 +5,6 @@ import { TokenService } from '../service/token.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginUser } from '../dto/login-user';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,12 +22,12 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  onLogin(): void{
+  onLogin(): void {
     this.loginUser = new LoginUser(this.email, this.password);
     this.authService.login(this.loginUser).subscribe(
       data => {
@@ -41,12 +40,15 @@ export class LoginComponent implements OnInit {
       err => {
         this.errorMessage = err.error?.message;
         this.toastr.error(this.errorMessage, 'Bejelentkezés nem sikerült!', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
+          timeOut: 3000, positionClass: 'toast-top-center',
         });
 
       }
     );
   }
 
+  forgotPassword(){
+    this.router.navigate(["/forgot-password"]);
+  }
 
 }

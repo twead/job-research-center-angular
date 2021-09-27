@@ -1,0 +1,39 @@
+<app-navigation></app-navigation>
+<div class="card">
+    <div class="card-header">
+        <h4>Beszélgetés vele: {{messages.otherPerson.name}}</h4>
+        Email cím: {{messages.otherPerson.email}} <br>
+        Telefonszám:
+        <span *ngIf="messages.otherPerson.phoneNumber">{{messages.otherPerson.phoneNumber}}</span>
+        <span *ngIf="!messages.otherPerson.phoneNumber">Nincs megadva!</span>
+    </div>
+    <div class="card-body">
+        <div class="overflow-auto">
+            <div class=messages>
+                <ng-template ngFor let-row [ngForOf]="messages.messages">
+                    <div *ngIf="(row.fromEmployer && isEmployer) || (!row.fromEmployer && !isEmployer)"
+                        class="message-orange">
+                        <p class="message-content">{{row.message}}</p>
+                        <div class="message-timestamp-left">Én küldtem: {{row.dateOfSending | date:'yyyy/MM/dd - HH:mm'}}</div>
+                    </div>
+                    <div *ngIf="(row.fromEmployer && !isEmployer) || (!row.fromEmployer && isEmployer)"
+                        class="message-blue">
+                        <p class="message-content">{{row.message}}</p>
+                        <div class="message-timestamp-left">{{messages.otherPerson.name}} küldte: {{row.dateOfSending | date:'yyyy/MM/dd - HH:mm'}}</div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group row">
+
+        <textarea class="form-control" id="message" name="message" [(ngModel)]="message" formControlName="message"
+            rows="6" required></textarea>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Küldés</button>
+    </div>
+</form>

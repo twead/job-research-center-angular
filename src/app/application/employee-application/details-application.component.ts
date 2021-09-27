@@ -68,6 +68,10 @@ export class DetailsApplicationComponent implements OnInit {
         });
   }
 
+  sendMessage(id: number) {
+    this.router.navigate(['new_message', id]);
+  }
+
   backToList() {
     this.router.navigate(['/employee/application/list']);
   }

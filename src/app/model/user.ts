@@ -1,6 +1,7 @@
 import { Role } from './role';
 import { Employer } from './employer';
 import { Application } from './application';
+import { Message } from './message';
 
 export class User {
     constructor(
@@ -14,7 +15,8 @@ export class User {
         public isEnabled: boolean = true,
         public role: Role = null,
         public employer: Employer = null,
-        public application: Application = null
+        public application: Application = null,
+        public message: Message = null
         ){}
     
     
