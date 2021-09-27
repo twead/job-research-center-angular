@@ -24,6 +24,7 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'email', 'actions'];
   dataSource: MatTableDataSource<any>;
   errorMessage: string;
+  existData= true;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
     private toastr: ToastrService, public matDialog: MatDialog,
@@ -36,6 +37,8 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.roleCheck()) {
       this.getEmployees();
+      if(this.employees.length==0)
+        this.existData=false;
       this.dataSource = new MatTableDataSource(this.employees);
     }
   }
@@ -56,9 +59,11 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     this.adminService.getAllEmployee().subscribe(
       response => {
         this.employees = response;
+        
         this.dataSource = new MatTableDataSource(this.employees);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
       },
       error => {
         this.errorMessage = error.error.message;

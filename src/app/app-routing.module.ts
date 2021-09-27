@@ -24,6 +24,8 @@ import { DetailsAdvertisementComponent } from './advertisement/employee-advertis
 import { ApplyAdvertisementComponent } from './advertisement/employee-advertisement/apply-advertisement.component';
 import { ListApplicationComponent } from './application/employee-application/list-application.component';
 import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
+import { NewMessageComponent } from './message/new-message.component';
+import { AllMessageComponent } from './message/all-message.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -48,6 +50,8 @@ const routes: Routes = [
   { path: 'employee/advertisement/apply/:id', component: ApplyAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: 'employee/application/list', component: ListApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: 'employee/application/details/:id', component: DetailsApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'new_message/:id', component: NewMessageComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'all_message', component: AllMessageComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ];
 

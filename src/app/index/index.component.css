@@ -1,6 +1,9 @@
 .imageAdmin img{
-    margin-top: 40px;
-    width: 50%;
+    margin-top: 10px;
+    width: 30%;
+}
+.card{
+  margin: auto;
 }
 .btn{
   margin: 20px;
@@ -13,6 +16,7 @@
 .alert{
   padding: 20px;
   border: 5px solid orange; 
+  border-radius: 25px;
   margin-bottom: 30px;
 }
   button{
@@ -21,9 +25,13 @@
   h2{
     text-align: center;
   }
-  i-bs{
-    color: green;
+
+  @media only screen and (max-width: 767px) {
+    .imageAdmin img{
+      width: 50%;
   }
+  }
+  
   
 
   

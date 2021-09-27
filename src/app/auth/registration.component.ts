@@ -30,12 +30,8 @@ export class RegistrationComponent implements OnInit {
   minDate = new Date(1900, 1, 1);
   maxDate = new Date();
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService,
-    private fb: FormBuilder
-  ) {
+  constructor(private authService: AuthService, private router: Router,
+    private toastr: ToastrService, private fb: FormBuilder) {
     this.form = fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],

@@ -10,10 +10,19 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown" *ngIf="isAdmin">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Felügyelet</a>
+          aria-haspopup="true" aria-expanded="false">
+          <i-bs name="gear-fill" width="25" height="25">
+          </i-bs> Felügyelet
+        </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLink="/employees">Álláskeresők</a>
-          <a class="dropdown-item" routerLink="/employers">Álláshirdetők</a>
+          <a class="dropdown-item" routerLink="/employees">
+            <i-bs name="bag-plus-fill" width="25" height="25">
+            </i-bs> Álláskeresők
+          </a>
+          <a class="dropdown-item" routerLink="/employers">
+            <i-bs name="person-plus-fill" width="25" height="25">
+            </i-bs> Álláshirdetők
+          </a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="isValidated">
@@ -29,17 +38,38 @@
       <li class="nav-item" *ngIf="isEmployee">
         <a class="nav-link" routerLink="/employee/application/list">Jelentkezéseim</a>
       </li>
+      <li class="nav-item" *ngIf="isEmployee || isEmployer">
+        <a class="nav-link" routerLink="/all_message">Üzenetek</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <span *ngIf="!isLogged">Bejelentkezés</span>
-          <span *ngIf="isLogged">Fiókom</span>
+          <span *ngIf="!isLogged">
+            <i-bs name="person-lines-fill" width="25" height="25">
+            </i-bs> Bejelentkezés
+          </span>
+          <span *ngIf="isLogged">
+            <i-bs name="file-earmark-person-fill" width="25" height="25">
+            </i-bs> Fiókom
+          </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" *ngIf="!isLogged" routerLink="/login">Bejelentkezés</a>
-          <a class="dropdown-item" *ngIf="!isLogged" routerLink="/registration">Regisztráció</a>
-          <a class="dropdown-item" *ngIf="isEmployee || isEmployer" routerLink="/profile">Profilom</a>
-          <a class="dropdown-item" type="button" *ngIf="isLogged" (click)="onLogout()">Kijelentkezés</a>
+          <a class="dropdown-item" *ngIf="!isLogged" routerLink="/login">
+            <i-bs name="person-lines-fill" width="25" height="25">
+            </i-bs> Bejelentkezés
+          </a>
+          <a class="dropdown-item" *ngIf="!isLogged" routerLink="/registration">
+            <i-bs name="person-plus-fill" width="25" height="25">
+            </i-bs> Regisztráció
+          </a>
+          <a class="dropdown-item" *ngIf="isEmployee || isEmployer" routerLink="/profile">
+            <i-bs name="person-square" width="25" height="25">
+            </i-bs> Profilom
+          </a>
+          <a class="dropdown-item" type="button" *ngIf="isLogged" (click)="onLogout()">
+            <i-bs name="box-arrow-right" width="25" height="25">
+            </i-bs> Kijelentkezés
+          </a>
         </div>
       </li>
     </ul>

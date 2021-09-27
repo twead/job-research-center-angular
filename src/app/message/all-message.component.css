@@ -1,0 +1,52 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+
+.messages {
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+}
+
+.message-blue {
+    margin-left: (100%-10px);
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #A8DDFD;
+    max-width: 80%;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #97C6E3;
+    border-radius: 10px;
+}
+
+.message-orange {
+    margin:auto;
+    margin-bottom: 10px;  
+    padding: 10px;
+    background-color: #f8e896;
+    max-width: 80%;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #dfd087;
+    border-radius: 10px;
+}
+
+.message-content {
+    padding: 0;
+    margin: 0;
+}
+
+.message-timestamp-right {
+    font-size: .85em;
+    font-weight: 300;
+}
+
+.message-timestamp-left {
+    font-size: .85em;
+    font-weight: 300;
+}
+
+span button{
+    float: right;
+}
