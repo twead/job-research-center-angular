@@ -1,5 +1,5 @@
 export class NewUser {
- 
+
   email: string;
   password: string;
   name: string;
@@ -7,7 +7,7 @@ export class NewUser {
   phoneNumber: string;
   isEmployer: Boolean;
 
-  constructor( email: string, password: string, name: string,dateOfBorn: Date, phoneNumber: string, isEmployer: Boolean){
+  constructor(email: string, password: string, name: string, dateOfBorn: Date, phoneNumber: string, isEmployer: Boolean) {
     this.email = email;
     this.password = password;
     this.name = name;

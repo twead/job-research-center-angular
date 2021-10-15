@@ -1,16 +1,22 @@
 <app-navigation></app-navigation>
 <div class="card text-center alert alert-danger">
-    <div class="card-header">
-      <h1>Email aktiválás</h1>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Az email aktiválás nem sikerült!</h5>
-      <p class="card-text">
-          Amennyiben fiókodat már aktiváltad egyszer, akkor a bejelentkezés menüben be tudsz lépni az oldalra.<br>
-          Bármilyen probléma, észrevétel esetén az alábbi email címen tudsz írni: 
-          <b>{{szakdolgozatEmail}}</b>
-        </p>
-        <button  class="btn btn-info" (click)="backToLogin()">Bejelentkezés</button>
-        <button  class="btn btn-info" (click)="backToIndex()">Vissza a kezdőlapra</button>
-    </div>
+  <div class="card-header">
+    <h1>Email aktiválás</h1>
   </div>
+  <div class="card-body">
+    <h5 class="card-title">Az email aktiválás nem sikerült!</h5>
+    <p class="card-text">
+      Amennyiben fiókodat már aktiváltad egyszer, akkor a bejelentkezés menüben be tudsz lépni az oldalra.<br>
+      Bármilyen probléma, észrevétel esetén az alábbi email címen tudsz írni:
+      <b>{{szakdolgozatEmail}}</b>
+    </p>
+    <button class="btn btn-info" (click)="backToLogin()">
+      <i-bs name="person-lines-fill" width="25" height="25">
+      </i-bs> Bejelentkezés
+    </button>
+    <button class="btn btn-info" (click)="backToIndex()">
+      <i-bs name="arrow-left-circle-fill" width="25" height="25">
+      </i-bs>Vissza a kezdőlapra
+    </button>
+  </div>
+</div>

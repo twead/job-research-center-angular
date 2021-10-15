@@ -84,7 +84,7 @@ export class CreateAdvertisementComponent implements OnInit {
         this.toastr.success('Sikeres állás meghirdetés!', 'OK', {
           timeOut: 2000, positionClass: 'toast-top-center'
         });
-        this.reload();
+        this.backToList();
       },
       err => {
         this.errorMessage = err.error.message;
@@ -104,8 +104,12 @@ export class CreateAdvertisementComponent implements OnInit {
     console.log(this.form.value);
   }
 
-  reload(){
+  reload() {
     this.form.reset();
+  }
+
+  backToList() {
+    this.router.navigate(['employer/advertisement/list'])
   }
 
 }

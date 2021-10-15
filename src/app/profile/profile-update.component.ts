@@ -9,6 +9,8 @@ import { UploadFileService } from '../service/upload-file.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { environment } from 'src/environments/environment';
+import { PasswordValidation } from '../validation/password-validation';
+import { UpdateEmailDto } from '../dto/update-email-dto';
 
 @Component({
   selector: 'app-profile-update',
@@ -19,6 +21,7 @@ export class ProfileUpdateComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   imageForm: FormGroup = new FormGroup({});
+  emailForm: FormGroup = new FormGroup({});
 
   updateProfile: User;
   isEmployer = false;
@@ -35,6 +38,11 @@ export class ProfileUpdateComponent implements OnInit {
   dateOfBorn: Date;
   phoneNumber: string;
   picture: string;
+  loginVerification: boolean;
+
+  changeEmail: string;
+  confirmChangeEmail: string;
+  updateEmail: UpdateEmailDto;
 
   minDate = new Date(1900, 1, 1);
   maxDate = new Date();
@@ -45,13 +53,20 @@ export class ProfileUpdateComponent implements OnInit {
     this.form = fb.group({
       name: ['', [Validators.required]],
       phoneNumber: ['', [Validators.nullValidator]],
-      dateOfBorn: ['', [Validators.nullValidator]]
+      dateOfBorn: ['', [Validators.nullValidator]],
+      loginVerification: ['', [Validators.nullValidator]]
     }),
       this.imageForm = fb.group({
         profilePhoto: ['', [
           RxwebValidators.extension({ extensions: ["jpeg", "gif", "jpg", "gif"] }),
           RxwebValidators.fileSize({ maxSize: 1048576 })
         ]]
+      }),
+      this.emailForm = fb.group({
+        changeEmail: ['', [Validators.required]],
+        confirmChangeEmail: ['', [Validators.required]]
+      }, {
+        validator: PasswordValidation('changeEmail', 'confirmChangeEmail')
       })
   }
 
@@ -59,8 +74,29 @@ export class ProfileUpdateComponent implements OnInit {
     return this.form.controls;
   }
 
+  get ef() {
+    return this.emailForm.controls;
+  }
+
   submit() {
     console.log(this.form.value);
+  }
+
+  onChangeEmail() {
+    this.updateEmail = new UpdateEmailDto(this.changeEmail);
+    this.userProfileService.updateEmail(this.email, this.updateEmail).subscribe(data => {
+      this.toastr.success('Kérlek igazold vissza az új email címedet!', 'OK', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      });
+      this.backToProfile();
+    }, err => {
+      this.errorMessage = err.error.message;
+      this.toastr.error(this.errorMessage, 'Hiba!', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      });
+      console.log(err)
+    }
+    );
   }
 
   ngOnInit(): void {
@@ -75,9 +111,10 @@ export class ProfileUpdateComponent implements OnInit {
         this.email = this.updateProfile.email;
         this.dateOfBorn = this.updateProfile.dateOfBorn;
         this.phoneNumber = this.updateProfile.phoneNumber;
+        this.loginVerification = this.updateProfile.loginVerification;
         if (this.isEmployer == true) {
           this.picture = this.updateProfile.employer.picture;
-          this.imagePath = this.storageURL + this.email + '%2Fimages%2F' + this.picture + "?alt=media";
+          this.imagePath = this.storageURL + this.updateProfile.id + '%2Fimages%2F' + this.picture + "?alt=media";
         }
       }, error => console.log(error));
 
@@ -88,9 +125,10 @@ export class ProfileUpdateComponent implements OnInit {
     this.updateProfile.email = this.email;
     this.updateProfile.dateOfBorn = this.dateOfBorn;
     this.updateProfile.phoneNumber = this.phoneNumber;
+    this.updateProfile.loginVerification = this.loginVerification;
     if (this.isEmployer == true) {
       this.picture = this.updateProfile.employer.picture;
-      this.imagePath = this.storageURL + this.email + '%2Fimages%2F' + this.picture + "?alt=media";
+      this.imagePath = this.storageURL + this.updateProfile.id + '%2Fimages%2F' + this.picture + "?alt=media";
     }
 
     this.userProfileService.updateProfile(this.email, this.updateProfile)
@@ -112,7 +150,7 @@ export class ProfileUpdateComponent implements OnInit {
   uploadImage() {
     const currentFileUpload = this.selectedFiles.item(0);
     this.picture = this.updateProfile.employer.picture;
-    this.uploadService.uploadImageToStorage(this.email, this.picture, currentFileUpload).subscribe(event => {
+    this.uploadService.uploadImageToStorage(this.updateProfile.id, this.picture, currentFileUpload).subscribe(event => {
       this.selectedFiles = undefined;
     });;
     this.backToProfile();
@@ -122,7 +160,7 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   deleteImage() {
-    this.uploadService.deleteImage(this.email, this.picture).subscribe(res => {
+    this.uploadService.deleteImage(this.updateProfile.id, this.picture).subscribe(res => {
       this.picture = null;
     });
   }
@@ -137,6 +175,10 @@ export class ProfileUpdateComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+  }
+
+  reload(){
+    window.location.reload();
   }
 
 

@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
           this.profileData = data;
           if (this.isEmployer == true) {
             this.picture = this.profileData.employer.picture;
-            this.imagePath = this.storageURL + this.email + '%2Fimages%2F' + this.picture + "?alt=media";
+            this.imagePath = this.storageURL + this.profileData.id + '%2Fimages%2F' + this.picture + "?alt=media";
           }
         },
         err => {

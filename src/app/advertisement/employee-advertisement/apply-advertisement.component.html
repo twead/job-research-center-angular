@@ -12,21 +12,21 @@
                         </tr>
                         <tr>
                             <th scope="row">Cím:</th>
-                            <td>{{details.advertisement.title}}</td>
+                            <td>{{details?.advertisement.title}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Típus:</th>
-                            <td>{{details.advertisement.type}}</td>
+                            <td>{{details?.advertisement.type}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Helyszín:</th>
-                            <td *ngIf="details.advertisement.city"> {{details.advertisement.city}} </td>
-                            <td *ngIf="!details.advertisement.city"> Nincs megadva! </td>
+                            <td *ngIf="details?.advertisement.city"> {{details?.advertisement.city}} </td>
+                            <td *ngIf="!details?.advertisement.city"> Nincs megadva! </td>
                         </tr>
                         <tr>
                             <th scope="row">Fizetés:</th>
-                            <td *ngIf="details.advertisement.payment!=0">{{details.advertisement.payment}} Ft</td>
-                            <td *ngIf="details.advertisement.payment==0">Nincs megadva!</td>
+                            <td *ngIf="details?.advertisement.payment!=0">{{details?.advertisement.payment}} Ft</td>
+                            <td *ngIf="details?.advertisement.payment==0">Nincs megadva!</td>
                         </tr>
                     </tbody>
                 </table>
@@ -63,11 +63,16 @@
                 </p>
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-success" [disabled]="!form.valid">
-                        Jelentkezek</button>
+                        <i-bs name="check-circle-fill" width="25" height="25">
+                        </i-bs> Jelentkezek
+                    </button>
                 </div>
             </form>
             <div class="text-center">
-                <button (click)="backToAdvertisement(details.advertisement.id)" class="btn btn-primary">Mégsem</button>
+                <button (click)="backToAdvertisement(details?.advertisement.id)" class="btn btn-primary">
+                    <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                    </i-bs> Mégsem
+                </button>
             </div>
         </div>
     </div>

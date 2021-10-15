@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 <div class="card text-center">
   <div class="card-header">
-    <h1>Felhasználó adatai:</h1>
+    <h4>Felhasználó adatai:</h4>
   </div>
   <div class="card-body">
     <div class="card-text">
@@ -34,8 +34,14 @@
           </tbody>
         </table>
       </div>
-      <button (click)="updateEmployee(employee?.id)" class="btn btn-info">Módosítás</button>
-      <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+      <button (click)="backToList()" class="btn btn-primary">
+        <i-bs name="arrow-left-circle-fill" width="25" height="25">
+        </i-bs> Vissza a listához
+      </button>
+      <button (click)="updateEmployee(employee?.id)" class="btn btn-info">
+        <i-bs name="pencil-square" width="25" height="25">
+        </i-bs> Módosítás
+      </button>
     </div>
   </div>
 </div>

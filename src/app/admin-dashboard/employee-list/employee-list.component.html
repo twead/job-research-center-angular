@@ -3,7 +3,9 @@
   <div class="card">
     <h2>Álláskeresők</h2>
     <div class="card-body">
-      <div *ngIf="!existData" class="alert alert-danger text-center">
+      <div *ngIf="!existData" class="alert alert-warning text-center">
+        <i-bs name="clipboard-x" width="75" height="75">
+        </i-bs> <br>
         Jelenleg még nincs álláskereső regisztrálva. Kérlek nézz vissza egy kis idő múlva!
       </div>
       <div *ngIf="existData">
@@ -24,9 +26,18 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Felügyelet: </b></th>
               <td mat-cell *matCellDef="let row">
-                <button class="btn btn-info" (click)="getEmployeeDetails(row.id)">Részletek</button>
-                <button class="btn btn-info" (click)="updateEmployee(row.id)">Módosítás</button>
-                <button class="btn btn-danger" (click)="deleteEmployee(row.id, row.email)">Törlés</button>
+                <button class="btn btn-info" (click)="getEmployeeDetails(row.id)">
+                  <i-bs name="card-list" width="25" height="25">
+                  </i-bs> Részletek
+                </button>
+                <button class="btn btn-info" (click)="updateEmployee(row.id)">
+                  <i-bs name="pencil-square" width="25" height="25">
+                  </i-bs> Módosítás
+                </button>
+                <button class="btn btn-danger" (click)="deleteEmployee(row.id, row.email)">
+                  <i-bs name="person-dash-fill" width="25" height="25">
+                  </i-bs> Törlés
+                </button>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -38,7 +49,6 @@
         </div>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Felhasználók száma / oldal"></mat-paginator>
       </div>
-
     </div>
   </div>
 </div>

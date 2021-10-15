@@ -3,9 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from 'src/app/service/token.service';
 import { MessageService } from '../service/message.service';
-import { NewMessage } from '../dto/new-message';
 import { MessageRequestDto } from '../dto/message-request-dto';
-import { MessageDto } from '../dto/message-dto';
 import { MyMessagesDto } from '../dto/my-messages-dto';
 
 @Component({
@@ -18,12 +16,13 @@ export class AllMessageComponent implements OnInit {
   email: string;
   isEmployer: boolean;
   errorMessage: string;
+  existData = true;
 
   messages: MyMessagesDto[];
   messageRequestDto: MessageRequestDto;
 
   constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService,
-     private tokenService: TokenService, private messageService: MessageService) { }
+    private tokenService: TokenService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.email = this.tokenService.getEmail();
@@ -31,12 +30,14 @@ export class AllMessageComponent implements OnInit {
     this.getAllMessages();
   }
 
-  getAllMessages(){
-    this.messageRequestDto = new MessageRequestDto(null,this.tokenService.IsEmployer());
+  getAllMessages() {
+    this.messageRequestDto = new MessageRequestDto(null, this.tokenService.IsEmployer());
     this.messageService.getAllMessage(this.email, this.messageRequestDto).subscribe(
       data => {
         this.messages = data;
-console.log(this.messages);
+        if (this.messages.length == 0) {
+          this.existData = false;
+        }
       }, error => {
         this.errorMessage = error.error.message;
         this.router.navigate(["/"]);

@@ -8,29 +8,29 @@ const TOKEN_KEY = 'AuthToken';
 })
 export class TokenService {
 
- roles: Array<string> = [];
+  roles: Array<string> = [];
   constructor(
-    private router : Router
-  ) {}
+    private router: Router
+  ) { }
 
-  public setToken(token: string): void{
+  public setToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
-    window.localStorage.setItem(TOKEN_KEY,token);
+    window.localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  public isLogged(): boolean{
-    if(this.getToken()){
+  public isLogged(): boolean {
+    if (this.getToken()) {
       return true;
     }
     return false;
   }
 
   public getEmail(): string {
-    if(!this.isLogged()){
+    if (!this.isLogged()) {
       return null;
     }
     const token = this.getToken();
@@ -42,7 +42,7 @@ export class TokenService {
   }
 
   public IsEmployer(): boolean {
-    if(!this.isLogged()){
+    if (!this.isLogged()) {
       return false;
     }
     const token = this.getToken();
@@ -50,14 +50,14 @@ export class TokenService {
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const roles = values.roles;
-    if(roles.indexOf('ROLE_EMPLOYER')<0){
+    if (roles.indexOf('ROLE_EMPLOYER') < 0) {
       return false;
     }
     return true;
   }
 
   public IsEmployee(): boolean {
-    if(!this.isLogged()){
+    if (!this.isLogged()) {
       return false;
     }
     const token = this.getToken();
@@ -65,14 +65,14 @@ export class TokenService {
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const roles = values.roles;
-    if(roles.indexOf('ROLE_EMPLOYEE')<0){
+    if (roles.indexOf('ROLE_EMPLOYEE') < 0) {
       return false;
     }
     return true;
   }
 
   public IsAdmin(): boolean {
-    if(!this.isLogged()){
+    if (!this.isLogged()) {
       return false;
     }
     const token = this.getToken();
@@ -80,13 +80,13 @@ export class TokenService {
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const roles = values.roles;
-    if(roles.indexOf('ROLE_ADMIN')<0){
+    if (roles.indexOf('ROLE_ADMIN') < 0) {
       return false;
     }
     return true;
   }
 
-  public logOut():void{
+  public logOut(): void {
     window.localStorage.clear();
     this.router.navigate(['/login']);
   }

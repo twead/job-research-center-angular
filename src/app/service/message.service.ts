@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MessageDto } from '../dto/message-dto';
 import { MessageRequestDto } from '../dto/message-request-dto';
 import { MyMessagesDto } from '../dto/my-messages-dto';
 import { NewMessage } from '../dto/new-message';
@@ -17,6 +16,7 @@ export class MessageService {
   constructor(private httpClient: HttpClient) { }
 
   public addMessage(email: string, newMessage: NewMessage): Observable<any> {
+    console.log(newMessage);
     return this.httpClient.post<any>(this.messageURL + 'new_message/' + email, newMessage);
   }
 

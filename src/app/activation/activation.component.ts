@@ -29,22 +29,21 @@ export class ActivationComponent implements OnInit {
         this.toastr.success('Sikeres email aktiválás!', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-        this.router.navigate(['/login']);
+        this.backToLogin();
       },
       error => {
         this.toastr.error('Sikertelen email aktiválás!', 'Hiba!', {
           timeOut: 3000, positionClass: 'toast-top-center',
         });
-        console.log(error)
       }
     );
   }
 
-  backToIndex(){
+  backToIndex() {
     this.router.navigate(['']);
   }
 
-  backToLogin(){
+  backToLogin() {
     this.router.navigate(['login']);
   }
 

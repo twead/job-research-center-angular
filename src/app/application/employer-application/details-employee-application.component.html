@@ -1,0 +1,63 @@
+<app-navigation></app-navigation>
+<div class="card">
+    <div class="card-header">
+        <h3>Jelentkezés megtekintése:</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Név:</th>
+                        <td width="60%">{{details.user.name}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email:</th>
+                        <td>{{details.user.email}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Telefonszám:</th>
+                        <td *ngIf="details.user.phoneNumber">{{details.user.phoneNumber}}</td>
+                        <td *ngIf="!details.user.phoneNumber">Nincs megadva</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Születési idő:</th>
+                        <td *ngIf="details.user.dateOfBorn">{{details.user.dateOfBorn}}</td>
+                        <td *ngIf="!details.user.dateOfBorn">Nincs megadva</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Feltöltött önéletrajz:</th>
+                        <td><a href='{{pdfPath}}' download="{{pdfPath}}" target="_blank">{{pdf}}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jelentkezés dátuma:</th>
+                        <td>{{details.application.dateOfApplication | date:'yyyy/MM/dd - HH:mm'}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Megjegyzés:</th>
+                        <td *ngIf="details.application.comment"><textarea
+                                disabled>{{details.application.comment}}</textarea>
+                        </td>
+                        <td *ngIf="!details.application.comment">Nincs megadva!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-center"><button class="btn btn-primary" (click)="backToAdvertisement(details.advertisement.id)">
+                <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                </i-bs> Vissza az álláshirdetésre
+            </button>
+            <button class="btn btn-success" (click)="sendMessage(details.user.id)">
+                <i-bs name="chat-right-text-fill" width="25" height="25">
+                </i-bs> Üzenet küldés
+            </button>
+            <button *ngIf="details.application.available" class="btn btn-danger"
+                (click)="deleteApplication(details.application.id, details.user.name, details.advertisement.id)">
+                <i-bs name="x-square-fill" width="25" height="25">
+                </i-bs> Törlés
+            </button>
+
+        </p>
+    </div>
+</div>

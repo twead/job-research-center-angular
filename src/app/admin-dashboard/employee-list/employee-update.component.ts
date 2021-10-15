@@ -14,8 +14,6 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class EmployeeUpdateComponent implements OnInit {
 
-  form: FormGroup = new FormGroup({});
-
   id: number;
   employee: User;
 
@@ -24,6 +22,7 @@ export class EmployeeUpdateComponent implements OnInit {
   dateOfBorn: Date;
   phoneNumber: string;
   errorMessage: string;
+  form: FormGroup = new FormGroup({});
 
   minDate = new Date(1900, 1, 1);
   maxDate = new Date();

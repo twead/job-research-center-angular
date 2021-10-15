@@ -37,8 +37,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Leírás:</th>
-                            <td><textarea
-                                    style="width: 100%; min-height: 200px; border: 0px;">{{details.advertisement.description}}</textarea>
+                            <td><textarea disabled>{{details.advertisement.description}}</textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -91,8 +90,17 @@
                                     <th scope="row" colspan="2">
                                         <h3>Álláshirdető adatai:</h3>
                                     </th>
-                                    <td> <button class="btn btn-success" (click)="sendMessage(details.user.id)">Üzenet
-                                            küldés</button></td>
+                                    <td> <button *ngIf="details.user.isEnabled" class="btn btn-success"
+                                            (click)="sendMessage(details.user.id)">
+                                            <i-bs name="chat-dots-fill" width="25" height="25">
+                                            </i-bs> Üzenet
+                                            küldés
+                                        </button><button *ngIf="!details.user.isEnabled" class="btn btn-danger"
+                                            disabled>
+                                            <i-bs name="chat-dots-fill" width="25" height="25">
+                                            </i-bs> Törölt felhasználó
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Név:</th>
@@ -104,7 +112,8 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Telefonszám:</th>
-                                    <td>{{details.user.phoneNumber}}</td>
+                                    <td *ngIf="details.user.phoneNumber">{{details.user.phoneNumber}} </td>
+                                    <td *ngIf="!details.user.phoneNumber">Nincs megadva!</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -112,7 +121,10 @@
                 </div>
             </div>
             <div class="text-center">
-                <button (click)="backToList()" class="btn btn-primary">Vissza a jelentkezéseimhez</button>
+                <button (click)="backToList()" class="btn btn-primary">
+                    <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                    </i-bs> Vissza a jelentkezéseimhez
+                </button>
             </div>
         </div>
     </div>

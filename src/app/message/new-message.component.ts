@@ -20,11 +20,12 @@ export class NewMessageComponent implements OnInit {
   message: string;
   isEmployer: boolean;
   errorMessage: string;
-  
+
   form: FormGroup = new FormGroup({});
   newMessage: NewMessage;
   messageRequestDto: MessageRequestDto;
   messages: MessageDto;
+  isFirstMessage = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService,
     private fb: FormBuilder, private tokenService: TokenService, private messageService: MessageService) {
@@ -33,19 +34,21 @@ export class NewMessageComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.email = this.tokenService.getEmail();
     this.isEmployer = this.tokenService.IsEmployer();
     this.getMessages();
   }
 
-  getMessages(){
-    this.messageRequestDto = new MessageRequestDto(this.id,this.tokenService.IsEmployer());
+  getMessages() {
+    this.messageRequestDto = new MessageRequestDto(this.id, this.tokenService.IsEmployer());
     this.messageService.getMessages(this.email, this.messageRequestDto).subscribe(
       data => {
         this.messages = data;
-console.log(this.messages);
+        if (this.messages.messages.length == 0) {
+          this.isFirstMessage = true;
+        }
       }, error => {
         this.errorMessage = error.error.message;
         this.router.navigate(["/"]);
@@ -57,9 +60,8 @@ console.log(this.messages);
   }
 
   save(): void {
-    this.newMessage = new NewMessage(this.id, this.message);
-    this.newMessage.isEmployer = this.tokenService.IsEmployer();
-    console.log(this.newMessage.isEmployer);
+    this.newMessage = new NewMessage(this.id, this.message, this.isEmployer);
+    console.log(this.newMessage);
     this.messageService.addMessage(this.email, this.newMessage).subscribe(
       data => {
         this.toastr.success('Üzenetet sikeresen elküldted!', 'OK', {
@@ -90,5 +92,8 @@ console.log(this.messages);
     window.location.reload();
   }
 
+  backToList() {
+    this.router.navigate(["all_message"])
+  }
 
 }

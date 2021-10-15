@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 <div class="card text-center">
   <div class="card-header">
-    <h1>Adataim:</h1>
+    <h4>Adataim:</h4>
   </div>
   <div class="card-body">
     <div class="card-text">
@@ -25,16 +25,21 @@
         <span *ngIf="profileData?.phoneNumber"> {{profileData?.phoneNumber}}</span>
         <span *ngIf="!profileData?.phoneNumber"> Nincs megadva</span>
       </div>
+      <div>
+        <label><b>Megerősítő kód kérése bejelentkezéskor: </b></label>
+        <span *ngIf="profileData?.loginVerification" style="color: green;"> Bekapcsolva</span>
+        <span *ngIf="!profileData?.loginVerification" style="color: red;"> Kikapcsolva</span>
+      </div>
       <div *ngIf="isEmployer">
         <label><b>Státusz: </b></label>
-        <span *ngIf="profileData?.employer.validated"> Aktív</span>
-        <div class="alert alert-success" *ngIf="profileData?.employer.validated">
+        <span *ngIf="profileData?.employer?.validated"> Aktív</span>
+        <div class="alert alert-success" *ngIf="profileData?.employer?.validated">
           <div>
             Munkahelyek meghirdetése a oldalon engedélyezett.
           </div>
         </div>
-        <span *ngIf="!profileData?.employer.validated"> Nem ellenőrzött</span>
-        <div class="alert alert-danger" *ngIf="!profileData?.employer.validated">
+        <span *ngIf="!profileData?.employer?.validated"> Nem ellenőrzött</span>
+        <div class="alert alert-danger" *ngIf="!profileData?.employer?.validated">
           <div>
             A kérelmed még felülvizsgálat alatt van.
             Hamarosan jelentkezünk a megadott elérhetőségeken további információért.
@@ -45,10 +50,12 @@
       </div>
     </div>
     <button (click)="updateProfile()" class="btn btn-primary" style="margin: 10px 20px">
-      Módosítás
+      <i-bs name="pencil-square" width="25" height="25">
+      </i-bs> Módosítás
     </button>
     <button (click)="updatePassword()" class="btn btn-primary" style="margin: 10px 20px">
-      Jelszó megváltoztatása
+      <i-bs name="safe2-fill" width="25" height="25">
+      </i-bs> Jelszó megváltoztatása
     </button>
   </div>
 </div>

@@ -22,11 +22,11 @@
                         <div class="col-sm-10">
                             <mat-form-field appearance="fill" style="width: 100%; ">
                                 <mat-label>Születés dátuma:</mat-label>
-                                <input matInput [matDatepicker]="picker" [(ngModel)]="dateOfBorn" formControlName="dateOfBorn"
-                                  [min]="minDate" [max]="maxDate">
+                                <input matInput [matDatepicker]="picker" [(ngModel)]="dateOfBorn"
+                                    formControlName="dateOfBorn" [min]="minDate" [max]="maxDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                              </mat-form-field>
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -36,8 +36,14 @@
                                 placeholder="Enter phoneNumber" [(ngModel)]="phoneNumber" maxlength="20">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Módosítom</button>
-                    <button (click)="backToList()" class="btn btn-primary">Mégsem</button>
+                    <button (click)="backToList()" class="btn btn-primary">
+                        <i-bs name="x-square-fill" width="25" height="25">
+                        </i-bs> Mégsem
+                    </button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+                        <i-bs name="check-square-fill" width="25" height="25">
+                        </i-bs> Módosítom
+                    </button>
                 </form>
             </div>
         </div>

@@ -1,0 +1,33 @@
+button{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+table {
+    width: 100%; 
+  }
+.accordion-button{
+  border: 1px solid black;
+}
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  mat-header-cell{
+    font-weight: bold;
+    height: 10px;
+  }
+  h2{
+    text-align: center;
+  }
+  mat-paginator {
+    display: flex;
+    justify-content: center;
+  }
+
+  textarea{
+    width: 100%; 
+    height: 200px; 
+    border: 1px solid black; 
+    background-color: white; 
+    color: black;
+  }

@@ -1,7 +1,7 @@
 export class UpdatePasswordDto {
-    password: string;
-  
-    constructor(password: string){
-      this.password = password;
-    }
+  password: string;
+
+  constructor(password: string) {
+    this.password = password;
   }
+}

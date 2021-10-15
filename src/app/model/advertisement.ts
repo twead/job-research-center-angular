@@ -11,6 +11,7 @@ export class Advertisement {
         public payment: number = null,
         public title: string = null,
         public type: string = null,
+        public available: boolean = null,
         public employer: Employer = null,
         public application: Application = null
     ) { }

@@ -8,6 +8,7 @@ import { NewUser } from '../dto/new-user';
 import { UpdatePasswordDto } from '../dto/update-password-dto';
 import { ForgotPasswordDto } from '../dto/forgot-password-dto';
 import { User } from '../model/user';
+import { LoginVerificationDto } from '../dto/login-verification-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,32 +19,36 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public addUser(newUser: NewUser): Observable<any>{
-    return this.httpClient.post<any>(this.authURL+'registration',newUser);
+  public addUser(newUser: NewUser): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'registration', newUser);
   }
 
-  public login(loginUser: LoginUser): Observable<JwtDto>{
-    return this.httpClient.post<JwtDto>(this.authURL+'login',loginUser);
+  public login(loginUser: LoginUser): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'login', loginUser);
   }
 
-  public refresh(dto: JwtDto): Observable<JwtDto>{
-    return this.httpClient.post<JwtDto>(this.authURL+'refresh',dto);
+  public loginWithVerification(loginVerificationDto: LoginVerificationDto): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'login_with_verification', loginVerificationDto);
   }
 
-  public activation(code: string){
-    return this.httpClient.get(this.authURL+'activation/'+code);
+  public refresh(dto: JwtDto): Observable<JwtDto> {
+    return this.httpClient.post<JwtDto>(this.authURL + 'refresh', dto);
   }
 
-  public forgotPassword(email: ForgotPasswordDto){
-    return this.httpClient.post<User>(this.authURL+'forgot-password',email);
+  public activation(code: string) {
+    return this.httpClient.get(this.authURL + 'activation/' + code);
   }
 
-  public resetPassword(code: string): Observable<User>{
-    return this.httpClient.get<User>(this.authURL+'reset-password/'+code);
+  public forgotPassword(email: ForgotPasswordDto) {
+    return this.httpClient.post<User>(this.authURL + 'forgot-password', email);
   }
 
-  public updatePassword(code: string, password: UpdatePasswordDto){
-    return this.httpClient.post<User>(this.authURL+'update-password/'+code, password);
+  public resetPassword(code: string): Observable<User> {
+    return this.httpClient.get<User>(this.authURL + 'reset-password/' + code);
+  }
+
+  public updatePassword(code: string, password: UpdatePasswordDto) {
+    return this.httpClient.post<User>(this.authURL + 'update-password/' + code, password);
   }
 
 }

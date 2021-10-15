@@ -13,9 +13,9 @@ import { TokenService } from 'src/app/service/token.service';
 export class EmployeeDetailsComponent implements OnInit {
 
   id: number;
-  employee: User;
   errorMessage: string;
   isEnabled = false;
+  employee: User;
 
   constructor(private route: ActivatedRoute, private router: Router,
     private adminService: AdminDashboardService, private toastr: ToastrService,

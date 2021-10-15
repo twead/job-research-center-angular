@@ -45,12 +45,18 @@ import { MatModalComponent } from './mat-modal/mat-modal.component';
 import { CreateAdvertisementComponent } from './advertisement/employer-advertisement/create-advertisement.component';
 import { ApplyAdvertisementComponent } from './advertisement/employee-advertisement/apply-advertisement.component';
 import { DetailsAdvertisementComponent } from './advertisement/employee-advertisement/details-advertisement.component';
-import { MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ListApplicationComponent } from './application/employee-application/list-application.component';
 import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { NewMessageComponent } from './message/new-message.component';
 import { AllMessageComponent } from './message/all-message.component';
+import { ListMyAdvertisementComponent } from './advertisement/employer-advertisement/list-my-advertisement.component';
+import { DetailsMyAdvertisementComponent } from './advertisement/employer-advertisement/details-my-advertisement.component';
+import { DetailsEmployeeApplicationComponent } from './application/employer-application/details-employee-application.component';
+import { UpdateAdvertisementComponent } from './advertisement/employer-advertisement/update-advertisement.component';
+import { ListMyDeletedAdvertisementComponent } from './advertisement/employer-advertisement/list-my-deleted-advertisement.component';
+import { UpdateEmailActivationComponent } from './activation/update-email-activation.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +87,12 @@ import { AllMessageComponent } from './message/all-message.component';
     DetailsApplicationComponent,
     NewMessageComponent,
     AllMessageComponent,
+    ListMyAdvertisementComponent,
+    DetailsMyAdvertisementComponent,
+    DetailsEmployeeApplicationComponent,
+    UpdateAdvertisementComponent,
+    ListMyDeletedAdvertisementComponent,
+    UpdateEmailActivationComponent,
   ],
   imports: [
     BrowserModule,

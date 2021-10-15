@@ -3,7 +3,7 @@
 <div class="card">
   <div class="card-body">
     <div class="card-text">
-      <h3 class="card-title text-center">Aktív állásjelentkezéseim:</h3>
+      <h3 class="card-title text-center">Állásjelentkezéseim:</h3>
       <mat-form-field appearance="fill">
         <mat-label><b>Szűrés állásajánlatra:</b></mat-label>
         <input matInput (keyup)="applyFilter($event)" #input>
@@ -41,7 +41,9 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Bővebben: </b></th>
             <td mat-cell *matCellDef="let row">
-              <button class="btn btn-info" (click)="getAdvertisementDetails(row.application.id)">Részletek</button>
+              <button class="btn btn-info" (click)="getAdvertisementDetails(row.application.id)">
+                <i-bs name="card-list" width="25" height="25"></i-bs> Részletek
+              </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

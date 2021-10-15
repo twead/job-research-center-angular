@@ -13,6 +13,7 @@ import { NumberOfRecords } from '../dto/number-of-records';
 import { EmployerService } from '../service/employer.service';
 import { ApplicationService } from '../service/application.service';
 import { ApplicationDto } from '../dto/application-dto';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -29,11 +30,13 @@ export class IndexComponent implements OnInit, AfterViewInit {
   isEmployer = false;
   isValidated = false;
   storageURL = environment.storageURL;
+  szakdolgozatEmail = environment.szakdolgozatEmail;
   imagePath: string;
   email: string;
   advertisements: Array<Advertisement> = [];
   applications: Array<ApplicationDto> = [];
   numberOfRecords: NumberOfRecords;
+  existData = true;
 
   displayedColumns: string[] = ['title', 'city', 'type', 'payment', 'dateOfUpload', 'action', 'applied'];
   dataSource: MatTableDataSource<any>;
@@ -41,7 +44,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
   constructor(private tokenService: TokenService, private advertisementService: AdvertisementService,
     private router: Router, private toastr: ToastrService,
-    public matDialog: MatDialog, private employerService: EmployerService, private applicationService: ApplicationService) { }
+    public matDialog: MatDialog, private employerService: EmployerService, private applicationService: ApplicationService, formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.email = this.tokenService.getEmail();
@@ -62,7 +65,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
       this.getAllAdvertisement();
       this.getAllMyApplication();
       this.dataSource = new MatTableDataSource(this.advertisements);
-
     }
   }
 
@@ -78,6 +80,9 @@ export class IndexComponent implements OnInit, AfterViewInit {
     this.advertisementService.getAllAdvertisement().subscribe(
       response => {
         this.advertisements = response;
+        if (this.advertisements.length == 0) {
+          this.existData = false;
+        }
         this.dataSource = new MatTableDataSource(this.advertisements);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -130,6 +135,11 @@ export class IndexComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+
+
+
+
 
   isValid() {
     this.employerService.isValidated(this.email)

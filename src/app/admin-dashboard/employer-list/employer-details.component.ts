@@ -50,7 +50,7 @@ export class EmployerDetailsComponent implements OnInit {
         data => {
           this.employer = data;
           this.picture = this.employer.employer.picture;
-          this.imagePath = this.storageURL + this.employer.email + '%2Fimages%2F' + this.picture + "?alt=media";
+          this.imagePath = this.storageURL + this.employer.id + '%2Fimages%2F' + this.picture + "?alt=media";
         },
         error => {
           this.errorMessage = error.error.message;

@@ -6,7 +6,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { environment } from 'src/environments/environment';
 import { ApplicationDto } from 'src/app/dto/application-dto';
 import { ApplicationService } from 'src/app/service/application.service';
-
+import { RequestDto } from 'src/app/dto/request-dto';
 
 @Component({
   selector: 'app-details-application',
@@ -18,6 +18,7 @@ export class DetailsApplicationComponent implements OnInit {
   id: number;
   email: string;
   errorMessage: string;
+  requestDto: RequestDto;
   details: ApplicationDto;
   storageURL = environment.storageURL;
   picture: string;
@@ -49,7 +50,9 @@ export class DetailsApplicationComponent implements OnInit {
   }
 
   getApplicationDetails(id: number) {
-    this.applicationService.getApplicationDetails(this.id)
+    this.requestDto = new RequestDto();
+    this.requestDto.id = id;
+    this.applicationService.getApplicationDetails(this.email, this.requestDto)
       .subscribe(
         data => {
           this.details = data;
@@ -64,7 +67,6 @@ export class DetailsApplicationComponent implements OnInit {
           this.toastr.error(this.errorMessage, 'Hiba!', {
             timeOut: 3000, positionClass: 'toast-top-center',
           });
-
         });
   }
 

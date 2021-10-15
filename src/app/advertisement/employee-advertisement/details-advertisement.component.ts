@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { TokenService } from 'src/app/service/token.service';
 import { AdvertisementService } from 'src/app/service/advertisement.service';
 import { AdvertisementDto } from 'src/app/dto/advertisement-dto';
@@ -109,6 +109,10 @@ export class DetailsAdvertisementComponent implements OnInit {
 
   getApplicationDetails() {
     this.router.navigate(['employee/application/details', this.applicationId]);
+  }
+
+  sendMessage(id: number) {
+    this.router.navigate(['new_message', id]);
   }
 
 }

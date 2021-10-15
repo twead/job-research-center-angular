@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: ""
+    apiKey: "AIzaSyDazlMzA9lpIL9_BW_BEaq-NF6q2QFoNfA",
+    authDomain: "jobresearchcenter-feb2b.firebaseapp.com",
+    projectId: "jobresearchcenter-feb2b",
+    storageBucket: "jobresearchcenter-feb2b.appspot.com",
+    messagingSenderId: "97133417826",
+    appId: "1:97133417826:web:d300ec0083638ba955483b",
+    measurementId: "G-9SKML15MM3"
   },
   authURL: "http://localhost:8080/auth/",
   userURL: "http://localhost:8080/api/profile/",

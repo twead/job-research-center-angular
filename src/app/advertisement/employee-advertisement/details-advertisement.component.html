@@ -13,38 +13,46 @@
                                 <h3 class="title">Állás adatai:</h3>
                             </th>
                             <td class="text-center">
-                                <button *ngIf="!existApplication(details.advertisement.id)"
-                                    (click)="apply(details.advertisement.id)" class="btn btn-success">Jelentkezem az
-                                    állásra</button>
-                                <button *ngIf="existApplication(details.advertisement.id)"
-                                    (click)="getApplicationDetails()" class="btn btn-success">Jelentkezésem
-                                    megtekintése</button>
-                                <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+                                <button *ngIf="!existApplication(details?.advertisement.id)"
+                                    (click)="apply(details?.advertisement.id)" class="btn btn-success">
+                                    <i-bs name="clipboard-check" width="25" height="25">
+                                    </i-bs> Jelentkezem az
+                                    állásra
+                                </button>
+                                <button *ngIf="existApplication(details?.advertisement.id)"
+                                    (click)="getApplicationDetails()" class="btn btn-success">
+                                    <i-bs name="clipboard-data" width="25" height="25">
+                                    </i-bs> Jelentkezésem
+                                    megtekintése
+                                </button>
+                                <button (click)="backToList()" class="btn btn-primary">
+                                    <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                                    </i-bs> Vissza a listához
+                                </button>
                             </td>
                         </tr>
 
                         <tr>
                             <th scope="row">Cím:</th>
-                            <td>{{details.advertisement.title}}</td>
+                            <td>{{details?.advertisement.title}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Típus:</th>
-                            <td>{{details.advertisement.type}}</td>
+                            <td>{{details?.advertisement.type}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Helyszín:</th>
-                            <td *ngIf="details.advertisement.city">{{details.advertisement.city}}</td>
-                            <td *ngIf="!details.advertisement.city">Nincs megadva!</td>
+                            <td *ngIf="details?.advertisement.city">{{details?.advertisement.city}}</td>
+                            <td *ngIf="!details?.advertisement.city">Nincs megadva!</td>
                         </tr>
                         <tr>
                             <th scope="row">Fizetés:</th>
-                            <td *ngIf="details.advertisement.payment!=0">{{details.advertisement.payment}} Ft</td>
-                            <td *ngIf="details.advertisement.payment==0">Nincs megadva!</td>
+                            <td *ngIf="details?.advertisement.payment!=0">{{details?.advertisement.payment}} Ft</td>
+                            <td *ngIf="details?.advertisement.payment==0">Nincs megadva!</td>
                         </tr>
                         <tr>
                             <th scope="row">Leírás:</th>
-                            <td><textarea
-                                    style="width: 100%; height: 200px; border: 0px;">{{details.advertisement.description}}</textarea>
+                            <td><textarea disabled>{{details?.advertisement.description}}</textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -54,7 +62,8 @@
                 <button class="btn btn-primary" type="button" data-toggle="collapse"
                     data-target="#collapseEmployerDetails" aria-expanded="false"
                     aria-controls="collapseEmployerDetails">
-                    Álláshirdető adatai
+                    <i-bs name="arrow-down-circle-fill" width="25" height="25">
+                    </i-bs> Álláshirdető adatai
                 </button>
             </p>
             <div class="collapse" id="collapseEmployerDetails">
@@ -67,21 +76,30 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <th scope="row" colspan="2">
+                                    <th scope="row">
                                         <h3>Álláshirdető adatai:</h3>
                                     </th>
+                                    <td class="text-center">
+                                        <button class="btn btn-success" (click)="sendMessage(details?.user.id)">
+                                            <i-bs name="chat-dots-fill" width="25" height="25">
+                                            </i-bs> Üzenet
+                                            küldés
+                                        </button>
+                                    </td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Név:</th>
-                                    <td>{{details.user.name}}</td>
+                                    <td>{{details?.user.name}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Email cím:</th>
-                                    <td>{{details.user.email}}</td>
+                                    <td>{{details?.user.email}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Telefonszám:</th>
-                                    <td>{{details.user.phoneNumber}}</td>
+                                    <td *ngIf="details?.user.phoneNumber">{{details?.user.phoneNumber}}</td>
+                                    <td *ngIf="!details?.user.phoneNumber">Nincs megadva!</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -89,13 +107,22 @@
                 </div>
             </div>
             <div class="text-center">
-                <button *ngIf="!existApplication(details.advertisement.id)" (click)="apply(details.advertisement.id)"
-                    class="btn btn-success">Jelentkezem az
-                    állásra</button>
-                <button *ngIf="existApplication(details.advertisement.id)" (click)="getApplicationDetails()"
-                    class="btn btn-success">Jelentkezésem
-                    megtekintése</button>
-                <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+                <button *ngIf="!existApplication(details?.advertisement.id)" (click)="apply(details?.advertisement.id)"
+                    class="btn btn-success">
+                    <i-bs name="clipboard-check" width="25" height="25">
+                    </i-bs> Jelentkezem az
+                    állásra
+                </button>
+                <button *ngIf="existApplication(details?.advertisement.id)" (click)="getApplicationDetails()"
+                    class="btn btn-success">
+                    <i-bs name="clipboard-data" width="25" height="25">
+                    </i-bs> Jelentkezésem
+                    megtekintése
+                </button>
+                <button (click)="backToList()" class="btn btn-primary">
+                    <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                    </i-bs>Vissza a listához
+                </button>
             </div>
         </div>
     </div>

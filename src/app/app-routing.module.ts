@@ -26,6 +26,12 @@ import { ListApplicationComponent } from './application/employee-application/lis
 import { DetailsApplicationComponent } from './application/employee-application/details-application.component';
 import { NewMessageComponent } from './message/new-message.component';
 import { AllMessageComponent } from './message/all-message.component';
+import { ListMyAdvertisementComponent } from './advertisement/employer-advertisement/list-my-advertisement.component';
+import { DetailsMyAdvertisementComponent } from './advertisement/employer-advertisement/details-my-advertisement.component';
+import { DetailsEmployeeApplicationComponent } from './application/employer-application/details-employee-application.component';
+import { UpdateAdvertisementComponent } from './advertisement/employer-advertisement/update-advertisement.component';
+import { ListMyDeletedAdvertisementComponent } from './advertisement/employer-advertisement/list-my-deleted-advertisement.component';
+import { UpdateEmailActivationComponent } from './activation/update-email-activation.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -36,7 +42,6 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard] },
   { path: 'reset-password/:code', component: ResetPasswordComponent, canActivate: [LoginGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
-  { path: 'profile/update', component: ProfileUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['employee', 'employer'] } },
   { path: 'profile/update', component: ProfileUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['employee', 'employer'] } },
   { path: 'profile/password-update', component: PasswordUpdateComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: 'employees', component: EmployeeListComponent, canActivate: [UserGuardService], data: { expectedRole: ['admin'] } },
@@ -52,6 +57,12 @@ const routes: Routes = [
   { path: 'employee/application/details/:id', component: DetailsApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: 'new_message/:id', component: NewMessageComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
   { path: 'all_message', component: AllMessageComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer', 'employee'] } },
+  { path: 'employer/advertisement/list', component: ListMyAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'employer/advertisement/deleted/list', component: ListMyDeletedAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'employer/advertisement/details/:id', component: DetailsMyAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'employer/advertisement/update/:id', component: UpdateAdvertisementComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'employer/application/details/:id', component: DetailsEmployeeApplicationComponent, canActivate: [UserGuardService], data: { expectedRole: ['employer'] } },
+  { path: 'update_email_activation/:code', component: UpdateEmailActivationComponent},
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ];
 

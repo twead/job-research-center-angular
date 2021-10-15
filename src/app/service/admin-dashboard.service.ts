@@ -33,8 +33,12 @@ export class AdminDashboardService {
     return this.httpClient.get(this.dashboardURL + 'employer/set-validation/' + id);
   }
 
-  public deleteUser(id: number) {
-    return this.httpClient.delete(this.dashboardURL + 'user/delete/' + id);
+  public deleteEmployee(id: number) {
+    return this.httpClient.delete(this.dashboardURL + 'employee/delete/' + id);
+  }
+
+  public deleteEmployer(id: number) {
+    return this.httpClient.delete(this.dashboardURL + 'employer/delete/' + id);
   }
 
 }

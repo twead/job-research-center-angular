@@ -1,0 +1,75 @@
+<app-navigation></app-navigation>
+<div class="card">
+    <div class="card-header">
+        <h4>Aktív álláshirdetéseim:</h4>
+    </div>
+    <div class="card-body">
+        <div *ngIf="!existData" class="alert alert-warning text-center">
+            <i-bs name="clipboard-x" width="75" height="75">
+            </i-bs> <br>
+            Eddig még nem hirdettél meg egy állást sem! <br><br>
+            <a routerLink="/employer/advertisement/create" class="btn btn-success">
+                <i-bs name="patch-plus-fill" width="25" height="25">
+                </i-bs> Új Álláshirdetés
+            </a>
+        </div>
+        <div *ngIf="existData">
+            <ng-template ngFor let-advertisement [ngForOf]="advertisements">
+                <div class="advertisement">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Állás címe:</th>
+                                    <td width="60%">{{advertisement.title}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Állás Típusa:</th>
+                                    <td>{{advertisement.type}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Állás helye:</th>
+                                    <td *ngIf="advertisement.city">{{advertisement.city}}</td>
+                                    <td *ngIf="!advertisement.city">Nincs megadva</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Fizetés:</th>
+                                    <td *ngIf="advertisement.payment">{{advertisement.payment}} Ft</td>
+                                    <td *ngIf="!advertisement.payment">Nincs megadva</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Meghirdetés dátuma:</th>
+                                    <td>{{advertisement.dateOfUpload | date:'yyyy/MM/dd - HH:mm'}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <button class="btn btn-primary"
+                                            (click)="showAdvertisementDetails(advertisement.id)">
+                                            <i-bs name="card-list" width="25" height="25">
+                                            </i-bs>Bővebben
+                                        </button>
+                                        <button class="btn btn-primary" (click)="editAdvertisement(advertisement.id)">
+                                            <i-bs name="pencil-square" width="25" height="25">
+                                            </i-bs> Szerkesztés
+                                        </button>
+                                        <button class="btn btn-success"
+                                            (click)="showAdvertisementDetails(advertisement.id)">
+                                            <i-bs name="file-earmark-person" width="25" height="25">
+                                            </i-bs> Jelentkezések
+                                        </button>
+                                        <button class="btn btn-danger"
+                                            (click)="deleteAdvertisement(advertisement.id,advertisement.title)">
+                                            <i-bs name="x-square-fill" width="25" height="25">
+                                            </i-bs> Törlés
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr>
+            </ng-template>
+        </div>
+    </div>
+</div>

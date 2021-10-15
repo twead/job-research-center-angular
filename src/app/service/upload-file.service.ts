@@ -17,15 +17,15 @@ export class UploadFileService {
 
   constructor(private https: HttpClient, private storage: AngularFireStorage) { }
 
-  uploadImageToStorage(email: string, oldPictureName: string, file: File): Observable<HttpEvent<{}>> {
-    this.userFileFolderURL = email + "/images/";
+  uploadImageToStorage(id: number, oldPictureName: string, file: File): Observable<HttpEvent<{}>> {
+    this.userFileFolderURL = id + "/images/";
     this.fileURL = this.userFileFolderURL + file.name;
     if (oldPictureName != null) {
       this.deleteImageFromStorage(this.userFileFolderURL, oldPictureName);
     }
     const data: FormData = new FormData();
     data.append('file', file);
-    const newRequest = new HttpRequest('POST', this.userURL + 'uploadImage/' + email, data, {
+    const newRequest = new HttpRequest('POST', this.userURL + 'uploadImage/' + id, data, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -39,10 +39,10 @@ export class UploadFileService {
     const uploadTask = this.storage.upload(this.fileURL, file);
   }
 
-  deleteImage(email: string, imageName: string): Observable<HttpEvent<{}>> {
-    this.userFileFolderURL = email + "/images/";
+  deleteImage(id: number, imageName: string): Observable<HttpEvent<{}>> {
+    this.userFileFolderURL = id + "/images/";
     this.deleteImageFromStorage(this.userFileFolderURL, imageName);
-    const newRequest = new HttpRequest('POST', this.userURL + 'deleteImageName/' + email, {
+    const newRequest = new HttpRequest('POST', this.userURL + 'deleteImageName/' + id, {
       reportProgress: true,
       responseType: 'text'
     });

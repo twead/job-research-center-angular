@@ -4,12 +4,18 @@
         Üzeneteim:
     </div>
     <div class="card-body">
+        <div *ngIf="!existData" class="alert alert-warning text-center">
+            <i-bs name="clipboard-x" width="75" height="75">
+            </i-bs> <br>
+            Még nem küldtél, illetve nem kaptál üzenetet. Kérlek nézz vissza kicsit később!
+            <br><br>
+        </div>
         <ng-template ngFor let-row [ngForOf]="messages">
             <div *ngIf="(row.lastMessage.fromEmployer && isEmployer) || (!row.lastMessage.fromEmployer && !isEmployer)"
                 class="message-orange">
                 <p>Beszélgetés vele: {{row.otherPerson.name}}
                     <span>
-                        <button class="btn btn-success" (click)="sendMessage(row.otherPerson.id)">Üzenet
+                        <button class="btn btn-success" (click)="sendMessage(row.otherPerson.id)">Beszélgetések
                             megtekintése</button></span>
                 </p>
                 <p class="message-content">Utolsó üzenet: {{row.lastMessage.message}}</p>
@@ -20,7 +26,7 @@
                 class="message-blue">
                 <p>Beszélgetés vele: {{row.otherPerson.name}}
                     <span>
-                        <button class="btn btn-success" (click)="sendMessage(row.otherPerson.id)">Üzenet
+                        <button class="btn btn-success" (click)="sendMessage(row.otherPerson.id)">Beszélgetések
                             megtekintése</button></span>
                 </p>
                 <p class="message-content">{{row.lastMessage.message}}</p>

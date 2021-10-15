@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +12,7 @@ import { MatModalComponent } from 'src/app/mat-modal/mat-modal.component';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-employer-list',
   templateUrl: './employer-list.component.html',
   styleUrls: ['./employer-list.component.css']
@@ -20,6 +22,7 @@ export class EmployerListComponent implements AfterViewInit {
   employers: Array<User> = [];
   displayedColumns: string[] = ['name', 'email', 'status', 'actions'];
   dataSource: MatTableDataSource<any>;
+  existData = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -53,6 +56,9 @@ export class EmployerListComponent implements AfterViewInit {
     this.adminService.getAllEmployer().subscribe(
       response => {
         this.employers = response;
+        if (this.employers.length == 0) {
+          this.existData = false;
+        }
         this.dataSource = new MatTableDataSource(this.employers);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -65,6 +71,7 @@ export class EmployerListComponent implements AfterViewInit {
       }
     );
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -72,14 +79,6 @@ export class EmployerListComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  getEmployerDetails(id: number) {
-    this.router.navigate(['employer/details', id]);
-  }
-
-  updateEmployer(id: number) {
-    this.router.navigate(['employer/update', id]);
   }
 
   setValidationToEmployer(id: number, email: string) {
@@ -127,7 +126,7 @@ export class EmployerListComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.adminService.deleteUser(id)
+        this.adminService.deleteEmployer(id)
           .subscribe(
             data => {
               this.toastr.success('Felhasználó sikeresen törölve!', 'OK', {
@@ -146,6 +145,14 @@ export class EmployerListComponent implements AfterViewInit {
       }
     }
     );
+  }
+
+  getEmployerDetails(id: number) {
+    this.router.navigate(['employer/details', id]);
+  }
+
+  updateEmployer(id: number) {
+    this.router.navigate(['employer/update', id]);
   }
 
 }

@@ -13,11 +13,13 @@ export class User {
         public phoneNumber: string = null,
         public activation: string = null,
         public isEnabled: boolean = true,
+        public loginVerification: boolean = true,
+        public loginVerificationCode: string = null,
         public role: Role = null,
         public employer: Employer = null,
         public application: Application = null,
         public message: Message = null
-        ){}
-    
-    
+    ) { }
+
+
 }

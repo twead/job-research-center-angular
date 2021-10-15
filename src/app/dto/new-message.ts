@@ -3,9 +3,10 @@ export class NewMessage {
     message: string;
     isEmployer: boolean;
 
-    constructor(id: number, message: string) {
+    constructor(id: number, message: string, isEmployer: boolean) {
         this.id = id;
         this.message = message;
+        this.isEmployer = isEmployer;
     }
 
 }

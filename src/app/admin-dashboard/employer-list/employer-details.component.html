@@ -1,14 +1,14 @@
 <app-navigation></app-navigation>
 <div class="card text-center">
   <div class="card-header">
-    <h1>Felhasználó adatai:</h1>
+    <h4>Felhasználó adatai:</h4>
   </div>
   <div class="card-body">
     <div class="card-text">
-    <div class="profileImage">
+      <div class="profileImage">
         <img *ngIf="picture" src="{{imagePath}}">
         <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
-    </div>
+      </div>
       <div class="table-responsive">
         <table class="table">
           <tbody>
@@ -36,19 +36,25 @@
               <td *ngIf="!employer?.isEnabled" class="noValidated">Email aktiválás még nem történt meg</td>
             </tr>
             <tr>
-                <th scope="row">Státusz:</th>
-                <td *ngIf="employer?.employer.validated" class="isValidated">
-                    Személyazonosság ellenőrizve, kérelem visszaigazolva
-                </td>
-                <td *ngIf="!employer?.employer.validated" class="noValidated">
-                    Személyazonosság még nem ellenőrizve
-                </td>
-              </tr>
+              <th scope="row">Státusz:</th>
+              <td *ngIf="employer?.employer.validated" class="isValidated">
+                Személyazonosság ellenőrizve, kérelem visszaigazolva
+              </td>
+              <td *ngIf="!employer?.employer.validated" class="noValidated">
+                Személyazonosság még nem ellenőrizve
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <button (click)="updateEmployer(employer?.id)" class="btn btn-info">Módosítás</button>
-      <button (click)="backToList()" class="btn btn-primary">Vissza a listához</button>
+      <button (click)="backToList()" class="btn btn-primary">
+        <i-bs name="arrow-left-circle-fill" width="25" height="25">
+        </i-bs> Vissza a listához
+      </button>
+      <button (click)="updateEmployer(employer?.id)" class="btn btn-info">
+        <i-bs name="pencil-square" width="25" height="25">
+        </i-bs> Módosítás
+      </button>
     </div>
   </div>
 </div>

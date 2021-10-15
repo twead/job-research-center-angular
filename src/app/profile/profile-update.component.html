@@ -8,7 +8,10 @@
         <img *ngIf="!picture" src="{{storageURL}}blank_profile.png?alt=media">
         <form [formGroup]="imageForm">
           <div class="form-group">
-            <button (click)="deleteImage()" class="btn btn-danger">Jelenlegi profilkép törlése</button>
+            <button *ngIf="picture" (click)="deleteImage()" class="btn btn-danger">
+              <i-bs name="x-square-fill" width="25" height="25">
+              </i-bs> Jelenlegi profilkép törlése
+            </button>
           </div>
           <div class="form-group">
             <div class="alert alert-danger" *ngIf="!imageForm.valid">
@@ -20,7 +23,9 @@
           </div>
           <div class="form-group">
             <button [disabled]="!imageForm.valid" class="btn btn-primary" (click)="uploadImage()">
-              Profilkép mentése</button>
+              <i-bs name="card-image" width="25" height="25">
+              </i-bs> Profilkép mentése
+            </button>
           </div>
         </form>
       </div>
@@ -57,12 +62,78 @@
                 placeholder="Enter phoneNumber" [(ngModel)]="phoneNumber" maxlength="20">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!form.valid"
-            style="margin-right: 20px">Módosítom</button>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" formControlName="loginVerification"
+              [(ngModel)]="loginVerification" id="loginVerification" checked>
+            <label class="form-check-label" for="loginVerification">Ellenőrző kód küldése emailben
+              bejelentkezésnél</label>
+          </div> <br>
           <button (click)="backToProfile()" class="btn btn-primary" style="margin-right: 20px">
-            Mégsem</button>
+            <i-bs name="x-square-fill" width="25" height="25">
+            </i-bs> Mégsem
+          </button>
+          <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="margin-right: 20px">
+            <i-bs name="pencil-square" width="25" height="25">
+            </i-bs> Módosítom
+          </button>
         </form>
+        <hr>
+        <p class="text-center">
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseEmployerDetails"
+            aria-expanded="false" aria-controls="collapseEmployerDetails">
+            <i-bs name="arrow-down-circle-fill" width="25" height="25">
+            </i-bs> Email cím módosítása
+          </button>
+        </p>
+        <div class="collapse" id="collapseEmployerDetails">
+          <div class="card card-body">
+            <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
+              <div class="form-group row">
+                <div class="alert alert-danger" *ngIf="ef.changeEmail.invalid && ef.changeEmail.touched">
+                  <div *ngIf="ef.changeEmail.errors.required">
+                    Email cím megadása kötelező!
+                  </div>
+                  <div *ngIf="ef.changeEmail.errors.pattern">
+                    Nem egyezik az email mintával!
+                  </div>
+                </div>
+                <div class="alert alert-warning" *ngIf="!ef.changeEmail.touched">
+                  Email megadása kötelező!
+                </div>
+                <label for="changeEmail" class="col-sm-2 col-form-label">Új email cím:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="changeEmail" placeholder="Enter Email" name="changeEmail"
+                    [(ngModel)]="changeEmail" formControlName="changeEmail"
+                    pattern="[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-]+" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div *ngIf="ef.confirmChangeEmail.touched && ef.confirmChangeEmail.invalid" class="alert alert-danger">
+                  <div *ngIf="ef.confirmChangeEmail.errors.required">Email cím megadása kötelező!.</div>
+                  <div *ngIf="ef.confirmChangeEmail.errors.passwordValidation">
+                    A két email cím nem egyezik!
+                  </div>
+                </div>
+                <div class="alert alert-warning" *ngIf="!ef.confirmChangeEmail.touched">
+                  Email cím megadása kötelező!
+                </div>
+                <label for="confirmChangeEmail" class="col-sm-2 col-form-label">Email mégegyszer:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="confirmChangeEmail" placeholder="Enter email"
+                    name="confirmChangeEmail" formControlName="confirmChangeEmail" required>
+                </div>
+              </div>
+              <button (click)="reload()" class="btn btn-primary" style="margin-right: 20px">
+                <i-bs name="x-square-fill" width="25" height="25">
+                </i-bs> Mégsem
+              </button>
+              <button type="submit" class="btn btn-success" [disabled]="!emailForm.valid">
+                <i-bs name="pencil-square" width="25" height="25">
+                </i-bs> Módosítom
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>

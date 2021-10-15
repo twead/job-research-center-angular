@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +12,7 @@ import { MatModalComponent } from 'src/app/mat-modal/mat-modal.component';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css']
@@ -24,12 +26,12 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'email', 'actions'];
   dataSource: MatTableDataSource<any>;
   errorMessage: string;
-  existData= true;
+  existData = true;
 
   constructor(private adminService: AdminDashboardService, private router: Router,
     private toastr: ToastrService, public matDialog: MatDialog,
     private tokenService: TokenService) {
-    ;
+
   }
   ngOnInit(): void {
   }
@@ -37,8 +39,6 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.roleCheck()) {
       this.getEmployees();
-      if(this.employees.length==0)
-        this.existData=false;
       this.dataSource = new MatTableDataSource(this.employees);
     }
   }
@@ -59,11 +59,12 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     this.adminService.getAllEmployee().subscribe(
       response => {
         this.employees = response;
-        
+        if (this.employees.length == 0) {
+          this.existData = false;
+        }
         this.dataSource = new MatTableDataSource(this.employees);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
       },
       error => {
         this.errorMessage = error.error.message;
@@ -83,7 +84,6 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   }
 
   deleteEmployee(id: number, email: string) {
-
     const dialogRef = this.matDialog.open(MatModalComponent, {
       width: '300px',
       data: {
@@ -94,7 +94,7 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.adminService.deleteUser(id)
+        this.adminService.deleteEmployee(id)
           .subscribe(
             data => {
               this.toastr.success('Felhasználó sikeresen törölve!', 'OK', {

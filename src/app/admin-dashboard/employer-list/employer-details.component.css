@@ -3,12 +3,10 @@
     width: 100%;
     text-align: center;
   }
-  
-  .photo input, button{
+.photo input, button{
     margin-bottom: 10px;
   }
-  
-  img{
+img{
     max-height: 200px;
     max-width: 200px;
     margin-bottom: 10px;

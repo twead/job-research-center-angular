@@ -68,12 +68,17 @@
                                     required></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Létrehozás</button>
+                        <button (click)="backToList()" class="btn btn-primary">
+                            <i-bs name="arrow-left-circle-fill" width="25" height="25">
+                            </i-bs> Mégsem
+                        </button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+                            <i-bs name="check-circle-fill" width="25" height="25">
+                            </i-bs> Létrehozás
+                        </button>
                     </form>
-
-
                 </div>
-
             </div>
         </div>
     </div>
+</div>

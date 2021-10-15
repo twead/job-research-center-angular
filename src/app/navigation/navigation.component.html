@@ -27,19 +27,42 @@
       </li>
       <li class="nav-item dropdown" *ngIf="isValidated">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Állásaim</a>
+          aria-haspopup="true" aria-expanded="false">
+          <i-bs name="clipboard-data" width="25" height="25">
+          </i-bs> Állásaim
+        </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLink="/employer/advertisement/create">Új állás létrehozása</a>
+          <a class="dropdown-item" routerLink="/employer/advertisement/create">
+            <i-bs name="patch-plus-fill" width="25" height="25">
+            </i-bs> Új állás létrehozása
+          </a>
+          <a class="dropdown-item" routerLink="/employer/advertisement/list">
+            <i-bs name="clipboard-data" width="25" height="25">
+            </i-bs> Állásaim megtekintése
+          </a>
+          <a class="dropdown-item" routerLink="/employer/advertisement/deleted/list">
+            <i-bs name="file-earmark-excel-fill" width="25" height="25">
+            </i-bs>Törölt állásaim
+          </a>
         </div>
       </li>
       <li class="nav-item" *ngIf="isEmployee">
-        <a class="nav-link" href="/">Álláskeresés</a>
+        <a class="nav-link" href="/">
+          <i-bs name="search" width="25" height="25">
+          </i-bs> Álláskeresés
+        </a>
       </li>
       <li class="nav-item" *ngIf="isEmployee">
-        <a class="nav-link" routerLink="/employee/application/list">Jelentkezéseim</a>
+        <a class="nav-link" routerLink="/employee/application/list">
+          <i-bs name="clipboard-data" width="25" height="25">
+          </i-bs> Jelentkezéseim
+        </a>
       </li>
-      <li class="nav-item" *ngIf="isEmployee || isEmployer">
-        <a class="nav-link" routerLink="/all_message">Üzenetek</a>
+      <li class="nav-item" *ngIf="isEmployee || isEmployer && isValidated">
+        <a class="nav-link" routerLink="/all_message">
+          <i-bs name="envelope-fill" width="25" height="25">
+          </i-bs> Üzenetek
+        </a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

@@ -26,7 +26,7 @@
     <h3>Bejelentkezés</h3>
     <div class="container">
       <div class="jumbotron">
-        <form #form="ngForm" (ngSubmit)="onLogin()" novalidate>
+        <form *ngIf="!showVerificationForm" #form="ngForm" (ngSubmit)="onLogin()" novalidate>
           <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-10">
@@ -46,10 +46,32 @@
             </i-bs> Bejelentkezek
           </button><br />
         </form>
-        <button type="submit" (click)="forgotPassword()" class="btn btn-danger">
+        <button *ngIf="!showVerificationForm" type="submit" (click)="forgotPassword()" class="btn btn-danger">
           <i-bs name="exclamation-triangle-fill" width="25" height="25">
           </i-bs> Elfelejtettem a jelszavam
         </button>
+        <form *ngIf="showVerificationForm" #form="ngForm" (ngSubmit)="onLoginVerification()" novalidate>
+          <div class="form-group row">
+            <label for="verificationCode" class="col-sm-5 col-form-label">Emailben elküldött bejelentkezést megerősítő
+              kód:</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="verificationCode" placeholder="Enter verification code"
+                name="verificationCode" [(ngModel)]="verificationCode" required>
+            </div>
+          </div>
+          <button type="button" (click)="backToIndex()" class="btn btn-primary">
+            <i-bs name="arrow-left-circle-fill" width="25" height="25">
+            </i-bs> Mégsem
+          </button>
+          <button type="button" (click)="onLogin()" class="btn btn-danger">
+            <i-bs name="exclamation-triangle-fill" width="25" height="25">
+            </i-bs> Kód újraküldése
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            <i-bs name="check-circle-fill" width="25" height="25">
+            </i-bs> Küldés
+          </button><br />
+        </form>
       </div>
     </div>
   </div>

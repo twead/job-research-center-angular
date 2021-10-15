@@ -8,6 +8,7 @@ export class Application {
         public comment: string = null,
         public dateOfApplication: Date = null,
         public pdf: string = null,
+        public available: boolean = null,
         public advertisement: Advertisement = null,
         public user: User = null
     ) { }

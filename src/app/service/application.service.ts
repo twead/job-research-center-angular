@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ApplicationAndEmployeeDto } from '../dto/application-and-employee-dto';
 import { ApplicationDto } from '../dto/application-dto';
 import { NewApplication } from '../dto/new-application';
+import { RequestDto } from '../dto/request-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import { NewApplication } from '../dto/new-application';
 export class ApplicationService {
 
   employeeURL = environment.employeeURL;
+  employerURL = environment.employerURL;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,7 +25,20 @@ export class ApplicationService {
     return this.httpClient.get<Array<ApplicationDto>>(this.employeeURL + 'list_applications/' + email);
   }
 
-  public getApplicationDetails(id: number): Observable<any> {
-    return this.httpClient.get<ApplicationDto>(this.employeeURL + 'details_application/' + id);
+  public getApplicationDetails(email: string, requestDto: RequestDto): Observable<any> {
+    return this.httpClient.post<ApplicationDto>(this.employeeURL + 'details_application/' + email, requestDto);
   }
+
+  public getAllApplicationAndEmployee(id: number): Observable<Array<ApplicationAndEmployeeDto>> {
+    return this.httpClient.get<Array<ApplicationAndEmployeeDto>>(this.employerURL + 'get_applications_and_employees/' + id);
+  }
+
+  public getApplicationAndEmployeeDetails(email: string, requestDto: RequestDto): Observable<ApplicationAndEmployeeDto> {
+    return this.httpClient.post<ApplicationAndEmployeeDto>(this.employerURL + 'get_application_and_employee_details/' + email, requestDto);
+  }
+
+  public deleteApplication(id: number) {
+    return this.httpClient.delete(this.employerURL + 'application/delete/' + id);
+  }
+
 }
