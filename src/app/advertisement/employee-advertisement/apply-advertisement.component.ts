@@ -9,6 +9,8 @@ import { NewApplication } from 'src/app/dto/new-application';
 import { ApplicationService } from 'src/app/service/application.service';
 import { AdvertisementDto } from 'src/app/dto/advertisement-dto';
 import { UploadFileService } from 'src/app/service/upload-file.service';
+import { User } from 'src/app/model/user';
+import { UserProfileService } from 'src/app/service/user-profile.service';
 
 @Component({
   selector: 'app-apply-advertisement',
@@ -19,19 +21,22 @@ export class ApplyAdvertisementComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   details: AdvertisementDto;
+  employee: User;
   newApplication: NewApplication
 
   advertisemenId: number;
   email: string;
   comment: string;
   cv: File;
+  key: string = '';
+  i: number = 0;
 
   errorMessage: string;
   selectedFiles: FileList;
 
   constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService,
     private fb: FormBuilder, private tokenService: TokenService, private applicationService: ApplicationService,
-    private advertisementService: AdvertisementService, private uploadFileService: UploadFileService) {
+    private advertisementService: AdvertisementService, private uploadFileService: UploadFileService, private userProfileService: UserProfileService) {
     this.form = fb.group({
       comment: ['', [Validators.nullValidator]],
       cv: ['', [
@@ -46,6 +51,7 @@ export class ApplyAdvertisementComponent implements OnInit {
       this.advertisemenId = this.route.snapshot.params['id'];
       this.email = this.tokenService.getEmail();
       this.getAdvertisement(this.advertisemenId);
+      this.getEmployee();
     }
   }
 
@@ -75,10 +81,25 @@ export class ApplyAdvertisementComponent implements OnInit {
     );
   }
 
+  getEmployee() {
+    this.userProfileService.getProfileDetails(this.email).subscribe(
+      response => {
+        this.employee = response;
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        this.toastr.error(this.errorMessage, 'Hiba!', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    );
+  }
+
   addAplication() {
     const currentFileUpload = this.selectedFiles.item(0);
-    this.newApplication = new NewApplication(this.details.advertisement.id, this.comment, currentFileUpload.name);
-    this.uploadFileService.uploadPdfToStorage(this.details.user.email, this.details.advertisement.id, this.email, currentFileUpload);
+    this.key = this.createKeyCode().toLocaleString();
+    this.newApplication = new NewApplication(this.details.advertisement.id, this.comment, currentFileUpload.name, this.key);
+    this.uploadFileService.uploadPdfToStorage(this.details.user.id, this.details.advertisement.id, this.employee.id, this.key, currentFileUpload);
     this.applicationService.addApplication(this.email, this.newApplication)
       .subscribe(data => {
         this.router.navigate(['/employee/application/list']);
@@ -93,6 +114,14 @@ export class ApplyAdvertisementComponent implements OnInit {
         console.log(err)
       }
       );
+  }
+
+  createKeyCode() {
+    for (this.i; this.i < 16; this.i++) {
+      this.key += String.fromCharCode(97 + (Math.random() * (26 - 0) + 0));
+    }
+    console.log(this.key);
+    return this.key;
   }
 
   get f() {

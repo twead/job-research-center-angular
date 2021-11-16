@@ -15,29 +15,29 @@
                         </tr>
                         <tr>
                             <th scope="row">Cím:</th>
-                            <td>{{details.advertisement.title}}</td>
+                            <td>{{details?.advertisement.title}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Típus:</th>
-                            <td>{{details.advertisement.type}}</td>
+                            <td>{{details?.advertisement.type}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Helyszín:</th>
-                            <td *ngIf="details.advertisement.city">{{details.advertisement.city}}</td>
-                            <td *ngIf="!details.advertisement.city">Nincs megadva!</td>
+                            <td *ngIf="details?.advertisement.city">{{details?.advertisement.city}}</td>
+                            <td *ngIf="!details?.advertisement.city">Nincs megadva!</td>
                         </tr>
                         <tr>
                             <th scope="row">Fizetés:</th>
-                            <td *ngIf="details.advertisement.payment!=0">{{details.advertisement.payment}} Ft</td>
-                            <td *ngIf="details.advertisement.payment==0">Nincs megadva!</td>
+                            <td *ngIf="details?.advertisement.payment!=0">{{details?.advertisement.payment}} Ft</td>
+                            <td *ngIf="details?.advertisement.payment==0">Nincs megadva!</td>
                         </tr>
                         <tr>
                             <th scope="row">Álláshirdetés feltöltésének ideje:</th>
-                            <td>{{details.advertisement.dateOfUpload | date:'yyyy/MM/dd - HH:mm'}}</td>
+                            <td>{{details?.advertisement.dateOfUpload | date:'yyyy/MM/dd - HH:mm'}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Leírás:</th>
-                            <td><textarea disabled>{{details.advertisement.description}}</textarea>
+                            <td><textarea disabled>{{details?.advertisement.description}}</textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -53,7 +53,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Jelentkezés ideje:</th>
-                            <td>{{details.application.dateOfApplication | date:'yyyy/MM/dd - HH:mm'}}</td>
+                            <td>{{details?.application.dateOfApplication | date:'yyyy/MM/dd - HH:mm'}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Feltöltött önéletrajz:</th>
@@ -61,10 +61,10 @@
                         </tr>
                         <tr>
                             <th scope="row">Megjegyzés:</th>
-                            <td *ngIf="details.application.comment"><textarea
-                                    style="width: 100%; min-height: 200px; border: 0px;">{{details.application.comment}}</textarea>
+                            <td *ngIf="details?.application.comment"><textarea
+                                    style="width: 100%; min-height: 200px; border: 0px;">{{details?.application.comment}}</textarea>
                             </td>
-                            <td *ngIf="!details.application.comment">Nincs megadva!</td>
+                            <td *ngIf="!details?.application.comment">Nincs megadva!</td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,12 +90,12 @@
                                     <th scope="row" colspan="2">
                                         <h3>Álláshirdető adatai:</h3>
                                     </th>
-                                    <td> <button *ngIf="details.user.isEnabled" class="btn btn-success"
-                                            (click)="sendMessage(details.user.id)">
+                                    <td> <button *ngIf="details?.user.isEnabled" class="btn btn-success"
+                                            (click)="sendMessage(details?.user.id)">
                                             <i-bs name="chat-dots-fill" width="25" height="25">
                                             </i-bs> Üzenet
                                             küldés
-                                        </button><button *ngIf="!details.user.isEnabled" class="btn btn-danger"
+                                        </button><button *ngIf="!details?.user.isEnabled" class="btn btn-danger"
                                             disabled>
                                             <i-bs name="chat-dots-fill" width="25" height="25">
                                             </i-bs> Törölt felhasználó
@@ -104,16 +104,16 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Név:</th>
-                                    <td>{{details.user.name}}</td>
+                                    <td>{{details?.user.name}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Email cím:</th>
-                                    <td>{{details.user.email}}</td>
+                                    <td>{{details?.user.email}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Telefonszám:</th>
-                                    <td *ngIf="details.user.phoneNumber">{{details.user.phoneNumber}} </td>
-                                    <td *ngIf="!details.user.phoneNumber">Nincs megadva!</td>
+                                    <td *ngIf="details?.user.phoneNumber">{{details?.user.phoneNumber}} </td>
+                                    <td *ngIf="!details?.user.phoneNumber">Nincs megadva!</td>
                                 </tr>
                             </tbody>
                         </table>

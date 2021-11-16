@@ -1,3 +1,24 @@
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.filter__form{
+   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.filter__form .form-group{
+  margin: 0 10px;
+}
+.primary{
+  background: blue;
+  color: white;
+}
+
+hr{
+  border: 5px solid purple;
+}
+
 .imageAdmin img{
     margin-top: 10px;
     width: 30%;

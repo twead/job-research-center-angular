@@ -76,8 +76,8 @@ export class DetailsEmployeeApplicationComponent implements OnInit {
       response => {
         this.details = response;
         this.pdf = this.details.application.pdf;
-        this.pdfPath = this.storageURL + this.email + '%2Fcv%2F'
-          + this.details.advertisement.id + '%2F' + this.details.user.email + '%2F' + this.pdf + "?alt=media";
+        this.pdfPath = this.storageURL + this.details.employer.id + '%2Fcv%2F'
+          + this.details.advertisement.id + '%2F' + this.details.user.id + '%2F' + this.details.application.key + '%2F' + this.pdf + "?alt=media";
       },
       error => {
         this.errorMessage = error.error.message;

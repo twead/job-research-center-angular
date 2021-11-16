@@ -6,10 +6,12 @@ export class ApplicationDto {
     application: Application;
     advertisement: Advertisement;
     user: User;
+    employeeId: number;
 
-    constructor(application: Application, advertisement: Advertisement, user: User) {
+    constructor(application: Application, advertisement: Advertisement, user: User, employeeId: number) {
         this.application = application;
         this.advertisement = advertisement;
         this.user = user;
+        this.employeeId = employeeId;
     }
 }

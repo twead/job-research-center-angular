@@ -29,6 +29,22 @@
             </i-bs> Regisztráció
           </a>
         </div>
+        <div class="alert alert-success text-center">
+          <h4 class="text-center">Amit az oldal nyújt Neked:</h4>
+          <b>Álláshirdetőként</b>
+          <ul>
+            <li>Álláshirdetések közzététele pályakezdő fiatalok számára, 
+            így segítve őket a tapasztalatszerzés első lépéseiben</li>
+            <li>Álláshirdetésekre történő jelentkezések megtekintése</li>
+            <li>Jelentkezőkkel történő beszélgetés</li>
+          </ul> <hr>
+          <b>Álláskeresőként:</b>
+          <ul>
+            <li>Biztonságosan és könnyedén történő álláskeresés</li>
+            <li>Álláshirdetésekre történő egyszerű és gyors jelentkezés</li>
+            <li>Álláshirdetőkkel történő beszélgetés</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -45,8 +61,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 
   <div *ngIf="isEmployee">
@@ -57,15 +71,45 @@
           </i-bs> <br>
           Jelenleg még nincs állásajánlat meghirdetve. Kérlek nézz vissza egy kis idő múlva!
         </div>
-        <h3 *ngIf="existData" class="card-title text-center">Üdvözöllek! Jelenleg az alábbi álláslehetőségek vannak:
+        <h3 *ngIf="existData" class="card-title text-center">Üdvözöllek! Jelenleg az alábbi álláslehetőségek vannak: <hr>
         </h3>
         <div *ngIf="existData" class="card-text">
-          <mat-form-field appearance="fill">
-            <mat-label><b>Szűrés állásajánlatra:</b></mat-label>
-            <input matInput (keyup)="applyFilter($event)" #input>
-          </mat-form-field>
-
-
+          <h4>Szűrés az alábbi feltételekre:</h4> <br/>
+          <form [formGroup]="filterForm">
+            
+            <div mat-dialog-content class="filter__form">
+              <div class="form-group">
+                <label for="">Cím: </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="title" placeholder="Enter title">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label for="">Város: </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="city" placeholder="Enter city">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label for="">Típus: </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="type" placeholder="Enter type">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label for="">Minimum fizetés (Ft): </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="payment" placeholder="Enter payment">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info" (click)="getFormsValue()">
+                  <i-bs name="search" width="25" height="25">
+                  </i-bs> Keresés
+                </button>
+              </div>
+            </div>
+          </form><hr>
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort class="table-striped">
               <ng-container matColumnDef="title">
@@ -117,7 +161,7 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">Nincs találati eredmény az alábbi névre: "{{input.value}}"</td>
+                <td class="mat-cell" colspan="4">A megadott szűrési mintára nincs találat!</td>
               </tr>
             </table>
           </div>
@@ -163,7 +207,7 @@
   <div *ngIf="isEmployer && isValidated">
     <div class="card">
       <div class="card-header">
-        Szakdolgozat - Álláshirdetések pályakezdők számára
+        Álláshirdetések pályakezdők számára
       </div>
       <div class="card-body">
         <h3 class="card-title text-center">Üdvözöllek az oldalon!</h3>

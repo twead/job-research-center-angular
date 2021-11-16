@@ -54,13 +54,13 @@ export class DetailsApplicationComponent implements OnInit {
     this.requestDto.id = id;
     this.applicationService.getApplicationDetails(this.email, this.requestDto)
       .subscribe(
-        data => {
+        data => { 
           this.details = data;
           this.pdf = this.details.application.pdf;
-          this.pdfPath = this.storageURL + this.details.user.email + '%2Fcv%2F'
-            + this.details.advertisement.id + '%2F' + this.email + '%2F' + this.pdf + "?alt=media";
+          this.pdfPath = this.storageURL + this.details.user.id + '%2Fcv%2F'
+            + this.details.advertisement.id + '%2F' + this.details.employeeId + '%2F' + this.details.application.key + '%2F' + this.pdf + "?alt=media";
           this.picture = this.details.user.employer.picture;
-          this.imagePath = this.storageURL + this.details.user.email + '%2Fimages%2F' + this.picture + "?alt=media";
+          this.imagePath = this.storageURL + this.details.user.id + '%2Fimages%2F' + this.picture + "?alt=media";
         }, error => {
           this.errorMessage = error.error.message;
           this.backToList();

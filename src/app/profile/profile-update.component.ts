@@ -150,7 +150,7 @@ export class ProfileUpdateComponent implements OnInit {
   uploadImage() {
     const currentFileUpload = this.selectedFiles.item(0);
     this.picture = this.updateProfile.employer.picture;
-    this.uploadService.uploadImageToStorage(this.updateProfile.id, this.picture, currentFileUpload).subscribe(event => {
+    this.uploadService.uploadImageToStorage(this.updateProfile.id, this.email, this.picture, currentFileUpload).subscribe(event => {
       this.selectedFiles = undefined;
     });;
     this.backToProfile();
@@ -160,7 +160,7 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   deleteImage() {
-    this.uploadService.deleteImage(this.updateProfile.id, this.picture).subscribe(res => {
+    this.uploadService.deleteImage(this.updateProfile.id, this.email, this.picture).subscribe(res => {
       this.picture = null;
     });
   }

@@ -60,7 +60,7 @@ export class DetailsAdvertisementComponent implements OnInit {
         data => {
           this.details = data;
           this.picture = this.details.user.employer.picture;
-          this.imagePath = this.storageURL + this.details.user.email + '%2Fimages%2F' + this.picture + "?alt=media";
+          this.imagePath = this.storageURL + this.details.user.id + '%2Fimages%2F' + this.picture + "?alt=media";
         }, error => {
           this.errorMessage = error.error.message;
           this.backToList();

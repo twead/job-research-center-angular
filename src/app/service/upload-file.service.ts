@@ -17,7 +17,7 @@ export class UploadFileService {
 
   constructor(private https: HttpClient, private storage: AngularFireStorage) { }
 
-  uploadImageToStorage(id: number, oldPictureName: string, file: File): Observable<HttpEvent<{}>> {
+  uploadImageToStorage(id: number, email: string, oldPictureName: string, file: File): Observable<HttpEvent<{}>> {
     this.userFileFolderURL = id + "/images/";
     this.fileURL = this.userFileFolderURL + file.name;
     if (oldPictureName != null) {
@@ -25,24 +25,24 @@ export class UploadFileService {
     }
     const data: FormData = new FormData();
     data.append('file', file);
-    const newRequest = new HttpRequest('POST', this.userURL + 'uploadImage/' + id, data, {
+    const newRequest = new HttpRequest('POST', this.userURL + 'uploadImage/' + email, data, {
       reportProgress: true,
       responseType: 'text'
     });
     return this.https.request(newRequest);
   }
 
-  uploadPdfToStorage(employerEmail: string, advertisementId: number, employeeEmail: string, file: File) {
-    this.userFileFolderURL = employerEmail + "/cv/" + advertisementId + "/" + employeeEmail + "/";
+  uploadPdfToStorage(employerId: number, advertisementId: number, employeeId: number, key: string, file: File) {
+    this.userFileFolderURL = employerId + "/cv/" + advertisementId + "/" + employeeId + "/" + key + "/";
     this.fileURL = this.userFileFolderURL + file.name;
     const storageRef = this.storage.ref(this.fileURL);
     const uploadTask = this.storage.upload(this.fileURL, file);
   }
 
-  deleteImage(id: number, imageName: string): Observable<HttpEvent<{}>> {
+  deleteImage(id: number, email: string, imageName: string): Observable<HttpEvent<{}>> {
     this.userFileFolderURL = id + "/images/";
     this.deleteImageFromStorage(this.userFileFolderURL, imageName);
-    const newRequest = new HttpRequest('POST', this.userURL + 'deleteImageName/' + id, {
+    const newRequest = new HttpRequest('POST', this.userURL + 'deleteImageName/' + email, {
       reportProgress: true,
       responseType: 'text'
     });

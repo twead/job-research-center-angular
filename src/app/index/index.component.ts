@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,14 +13,14 @@ import { NumberOfRecords } from '../dto/number-of-records';
 import { EmployerService } from '../service/employer.service';
 import { ApplicationService } from '../service/application.service';
 import { ApplicationDto } from '../dto/application-dto';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
-export class IndexComponent implements OnInit, AfterViewInit {
+export class IndexComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,9 +42,33 @@ export class IndexComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any>;
   errorMessage: string;
 
+  filterValues = {
+    title: '',
+    city: '',
+    type: '',
+    payment: '',
+    date: ''
+  }
+
   constructor(private tokenService: TokenService, private advertisementService: AdvertisementService,
     private router: Router, private toastr: ToastrService,
-    public matDialog: MatDialog, private employerService: EmployerService, private applicationService: ApplicationService, formBuilder: FormBuilder) { }
+    public matDialog: MatDialog, private employerService: EmployerService, private applicationService: ApplicationService) {
+  }
+
+  filterForm = new FormGroup({
+    title: new FormControl(),
+    city: new FormControl(),
+    type: new FormControl(),
+    payment: new FormControl(),
+    date: new FormControl(),
+  });
+
+  get title() { return this.filterForm.get('title'); }
+  get city() { return this.filterForm.get('city'); }
+  get type() { return this.filterForm.get('type'); }
+  get payment() { return this.filterForm.get('payment'); }
+  get date() { return this.filterForm.get('date'); }
+
 
   ngOnInit(): void {
     this.email = this.tokenService.getEmail();
@@ -58,13 +82,11 @@ export class IndexComponent implements OnInit, AfterViewInit {
     if (this.isEmployer) {
       this.isValid();
     }
-  }
-
-  ngAfterViewInit(): void {
     if (this.isEmployee) {
       this.getAllAdvertisement();
       this.getAllMyApplication();
-      this.dataSource = new MatTableDataSource(this.advertisements);
+      this.formSubscribe();
+      this.getFormsValue();
     }
   }
 
@@ -84,6 +106,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
           this.existData = false;
         }
         this.dataSource = new MatTableDataSource(this.advertisements);
+        this.formSubscribe();
+        this.getFormsValue();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -110,6 +134,40 @@ export class IndexComponent implements OnInit, AfterViewInit {
     );
   }
 
+  formSubscribe() {
+    this.title.valueChanges.subscribe(titleValue => {
+      this.filterValues['title'] = titleValue
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+    this.city.valueChanges.subscribe(cityValue => {
+      this.filterValues['city'] = cityValue
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+    this.type.valueChanges.subscribe(typeValue => {
+      this.filterValues['type'] = typeValue
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+    this.payment.valueChanges.subscribe(paymentValue => {
+      this.filterValues['payment'] = paymentValue
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+  }
+
+  getFormsValue() {
+    if (this.dataSource) {
+      this.dataSource.filterPredicate = (data, filter: string): boolean => {
+        let searchString = JSON.parse(filter);
+        const resultValue =
+          data.title.toString().trim().toLowerCase().indexOf(searchString.title.toLowerCase()) !== -1 &&
+          (data.city || '').toString().trim().toLowerCase().indexOf(searchString.city.toLowerCase()) !== -1 &&
+          data.type.toString().trim().toLowerCase().indexOf(searchString.type.toLowerCase()) !== -1 &&
+          data.payment >= searchString.payment;
+        return resultValue;
+      }
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    }
+  }
+
   existApplication(id: number) {
     var result = false;
     if (this.applications.length > 0) {
@@ -126,20 +184,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
   getAdvertisementDetails(id: number) {
     this.router.navigate(['employee/advertisement/details', id]);
   }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-
-
-
-
 
   isValid() {
     this.employerService.isValidated(this.email)
